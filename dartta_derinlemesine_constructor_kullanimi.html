@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Dart'ta Derinlemesine Constructor Kullanımı</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Dart&#39;ta Derinlemesine Constructor Kullanımı</h1>
+
+<p><strong>Constructors (Yapıcılar)</strong>; sınıfın adıyla aynı ada sahip, bir nesne oluşturulduğunda başlatmak için kullanılan metotlardır. <em>Bir dönüş tipine sahip olmazlar</em> ve <em>başlangıç değerleri vermek için parametreli ya da parametresiz olarak oluşturulabilirler</em>.</p>
+
+<p><strong>Dart</strong>&#39;taki tüm sınıfların kendi varsayılan yapıcıları vardır. Eğer siz yazmış olduğunuz bir sınıf için bir yapıcı oluşturmazsanız, derleyici sizin için üye değişkenlere varsayılan değerleri atayarak bir yapıcı oluşturacaktır.</p>
+
+<p>Aşağıdaki gibi yapıcısı olmayan bir sınıf oluşturalım.</p>
+
+<div><pre><code class="language-none">class AnyClass {}</code></pre></div>
+
+<p>Ardından bu sınıftan bir örnek oluşturarak yazdıralım.</p>
+
+<div><pre><code class="language-none">var anyClass = AnyClass();
+print(&quot;AnyClass: $anyClass&quot;);</code></pre></div>
+
+<p>Çıktısı aşağıdaki gibi oluşacaktır.</p>
+
+<div><pre><code class="language-none">flutter: AnyClass: Instance of &#39;AnyClass&#39;</code></pre></div>
+
+<p>Örneğimizdeki <strong>AnyClass</strong>&#39;ına şimdi bir yapıcı ekleyelim.</p>
+
+<div><pre><code class="language-none">class AnyClass {
+  AnyClass() {
+    print(&quot;AnyClass Constructor&quot;);
+  }
+}</code></pre></div>
+
+<p>Direkt olarak sınıfımızı çağırdığımızda</p>
+
+<div><pre><code class="language-none">AnyClass();</code></pre></div>
+
+<p>Çıktısı aşağıdaki gibi oluşacaktır.</p>
+
+<div><pre><code class="language-none">flutter: AnyClass Constructor</code></pre></div>
+
+<p>İkinci örneğimizde <strong>AnyClass</strong>&#39;ını çağırdığımızda, direkt olarak yapıcısını çalıştırmış oldu ve yapıcısı içerisindeki print işlemi ile <strong>&quot;AnyClass Constructor&quot;</strong> mesajını yazdırmış oldu.</p>
+
+<p>Buradan çıkartılması gereken sonuç, ilgili sınıf çağırıldığında varsayılan olan bazı işlemleri yapmak istediğinizde, bunu yapıcı üzerinde gerçekleştirebilirsiniz.</p>
+
+<h2 id="toc_1">Yapıcılar/Constructors&#39;ın Özellikleri</h2>
+
+<p>Yapıcı özelliklerini aşağıdaki gibi listeleyebliriz.</p>
+
+<ol>
+<li>Bir nesne oluşturulduğunda, yapıcı otomatik olarak çağrılır.</li>
+<li>Yapıcıları tanımlarken belirttiğimiz gibi, yapıcının adı, sınıf adıyla aynı olmalıdır.</li>
+<li>Yapıcılar, bir dönüş tipine sahip olamaz.</li>
+<li>Eğer sınıf içerisinde bir oluşturucu belirtilmemişse, varsayılan olarak parametresiz yapıcı kullanılır. (Yukarıdaki örneğimizde olduğu gibi.)</li>
+</ol>
+
+<h2 id="toc_2">Yapıcı Türleri</h2>
+
+<p>Üç tür yapıcı bulunur. Bunlar;</p>
+
+<ol>
+<li>Default Constructor (Varsayılan Yapıcı)</li>
+<li>Parameterized Constructor (Parametreli Yapıcı)</li>
+<li>Named Constructor (Adlandırılmış Yapıcı)</li>
+</ol>
+
+<p>olarak isimlendirilir.</p>
+
+<h3 id="toc_3">Default constructor:</h3>
+
+<p>Yukarıda bahsettiğimiz <strong>AnyClass</strong> örneği ile <strong>varsayılan yapıcı (default constructor)</strong> çalışmasını yapmış olduk. Eğer tanım olarak söyleyecek olursak, <em>herhangi bir parametresi olmayan yapıcıya verilen isimdir</em> diyebiliriz.</p>
+
+<h3 id="toc_4">Parameterized Constructor:</h3>
+
+<p>Parametreli yapıcı, parametre alan yapıcıdır.</p>
+
+<p>Daha iyi anlamak için aşağıdaki sınıfı oluşturalım.</p>
+
+<div><pre><code class="language-none">class ClassName {
+  ClassName(String name) {
+    print(&quot;Class name: $name&quot;);
+  }
+}</code></pre></div>
+
+<p>Bu sınıfın yapıcısını aşağıdaki gibi parametreli olarak çağıralım.</p>
+
+<div><pre><code class="language-none">void main() {
+  ClassName(&quot;Test&quot;);
+}</code></pre></div>
+
+<p>Çıktısı aşağıdaki gibi olacaktır.</p>
+
+<div><pre><code class="language-none">Class name: Test</code></pre></div>
+
+<h3 id="toc_5">Named Constructor:</h3>
+
+<p>Diğer bir çok dilde, yapıcınızı <strong>aşırı yüklemeniz (overload)</strong> mümkündür. Ancak <strong>Dart</strong> buna izin vermez. Dart ile aynı isimde fakat farklı parametrelere sahip yapıcı oluşturamazsınız. Derleyici hata verir. Ancak <strong>adlandırılmış yapıcı (named constructor)</strong> ile bunu gerçekleştirmeniz mümkündür. Çünkü adlandırılmış yapıcı, her biri kendi adına sahip birden fazla yapıcı oluşturmanıza olanak sağlar.</p>
+
+<p>Aşağıdaki gibi <strong>Named</strong> adında <strong>3</strong> farklı yapıcı bulunduran bir sınıf hazırlayalım.</p>
+
+<div><pre><code class="language-none">class Named {
+  Named.constructorName(String name) {
+    print(&quot;constructorName: $name&quot;);
+  }
+
+  Named.constructorName2(String name) {
+    print(&quot;constructorName2: $name&quot;);
+  }
+
+  Named.constructorName3(String name) {
+    print(&quot;constructorName3: $name&quot;);
+  }
+}</code></pre></div>
+
+<p>Bu sınıfın yapıcılarını aşağıdaki gibi çağırabiliriz.</p>
+
+<div><pre><code class="language-none">Named.constructorName(&quot;Test 1&quot;);
+Named.constructorName2(&quot;Test 2&quot;);
+Named.constructorName3(&quot;Test 3&quot;);</code></pre></div>
+
+<p>Çıktısı ise aşağıdaki gibi olacaktır.</p>
+
+<div><pre><code class="language-none">flutter: constructorName: Test 1
+flutter: constructorName2: Test 2
+flutter: constructorName3: Test 3</code></pre></div>
+
+<h2 id="toc_6">Yapıcılar/Constructors&#39;da &quot;this&quot; Anahtar Kelimesinin Kullanımı</h2>
+
+<p><strong>&quot;this&quot;</strong> anahtar kelimesi, geçerli sınıf nesnesine başvuru yapmak için kullanılır. Sınıf içerisinde bir ad çakışması olmadığı sürece isteğe bağlı olarak kullanılabilir. Ancak aksi durumda bir zorunluluk haline gelecektir.</p>
+
+<p>Bu durumu daha iyi anlamak için aşağıdaki gibi bir sınıf oluşturalım.</p>
+
+<div><pre><code class="language-none">class Car {
+  late String modelName;
+  late int maxSpeed;
+
+  Car(modelName, maxSpeed) {
+    modelName =  &quot;Toyota&quot;;
+    maxSpeed = 200;
+    print(&quot;Bu arabanın model adı/hız:  $modelName/$maxSpeed.&quot;);
+  }
+}</code></pre></div>
+
+<p>Şimdi bu sınıfımızı aşağıdaki gibi çağıralım.</p>
+
+<div><pre><code class="language-none">Car(&quot;Fiat&quot;, 160);</code></pre></div>
+
+<p><strong>Ekran da ne yazmasını bekleriz?</strong> Bunun için adım adım irdeleyelim.</p>
+
+<p>Car sınıfını çağırdığımızda ilk olarak <strong>yapıcı</strong> çağırılacak. <strong>modelName/maxSpeed</strong> değişkenleri <strong>Car</strong> sınıfı çağırılırken verildiği gibi <strong>Fiat/160</strong> şeklinde gelecek ancak, yapıcının içerisinde bu iki değişkene <strong>Toyota/200</strong> ataması yapılacak. <strong>print</strong> ettiğimizde ekranda aşağıdaki gibi görünecektir.</p>
+
+<div><pre><code class="language-none">Bu arabanın model adı/hız:  Toyota/200.</code></pre></div>
+
+<p>Bunun yanında dikkat ettiyseniz <strong>Car</strong> sınıfı içerisinde bulunan <strong>modelName/maxSpeed</strong> isimli sınıf değişkenlerini hiç kullanmamış olduk ve başlangıç değeri de vermedik. Burada <strong>late</strong> anahtar kelimesini kullanarak <strong>Dart</strong>&#39;a, bu değişkene daha sonra değer atayacağımızı belirtiyor ve hata vermemesini istiyoruz. <strong>Dart</strong> bu sebeple hata vermiyor ancak biz yine de bu değişkenleri atıl olarak bırakmış oluyoruz.</p>
+
+<p>O zaman onları oyuna dahil edelim..</p>
+
+<p>Örneğimizi aşağıdaki gibi güncelliyoruz ve tek yaptığımı şu oluyor. Yapıcı içerisindeki <strong>modelName/maxSpeed</strong> değişkenlerine this anahtar sözcüğünü ekliyoruz.</p>
+
+<div><pre><code class="language-none">class Car {
+  late String modelName;
+  late int maxSpeed;
+
+  Car(modelName, maxSpeed) {
+    this.modelName =  &quot;Toyota&quot;;
+    this.maxSpeed = 200;
+    print(&quot;Bu arabanın model adı/hız:  $modelName/$maxSpeed.&quot;);
+  }
+}</code></pre></div>
+
+<p>Şimdi bu sınıfımızı tekrar aşağıdaki gibi çağıralım.</p>
+
+<div><pre><code class="language-none">Car(&quot;Fiat&quot;, 160);</code></pre></div>
+
+<p>Bu sefer çıktımız aşadağıdaki gibi değişti.</p>
+
+<div><pre><code class="language-none">Bu arabanın model adı/hız:  Fiat/160.</code></pre></div>
+
+<p><strong>Neden?</strong></p>
+
+<div><pre><code class="language-none">print(&quot;Bu arabanın model adı/hız:  $modelName/$maxSpeed.&quot;);</code></pre></div>
+
+<p>Çıktı aldığımız yukarıdaki satırda, yapıcıya ait <strong>modelName/maxSpeed</strong> değişkenlerini kullanıyoruz. Ancak <strong>this</strong> anahtar kelimesini kullanarak <strong>Toyata/200</strong> değerlerine sahip <strong>modelName/maxSpeed</strong> değişkenlerimiz, sınıf değişkenlerini temsil ediyor. Bu değişkenlerini de örneğimizin hiç bir yerinde <strong>print</strong> etmediğimiz için, ekrana basılan değerler yapıcıya verilen değerler olarak ekrana basılıyor. Yani <strong>Fiat/160</strong>.</p>
+
+<p>Bunu aşağıdaki debug ekranında çok daha iyi gözlemleyebiliriz.</p>
+
+<p><img src="https://raw.githubusercontent.com/egemenmede/public_assets/main/debug_this.png" alt="This Keyword" width="600"/></p>
+
+<p><strong>Ancak bu kullanım şekli en iyi pratiklerden değildir.</strong> Örneğin başından beri en doğru kullanım şekli ise aşağıdaki gibi olmalıdır.</p>
+
+<div><pre><code class="language-none">class Car {
+  String modelName;
+  int maxSpeed;
+
+  Car(this.modelName, this.maxSpeed) {
+    print(&quot;Bu arabanın model adı/hız:  $modelName/$maxSpeed.&quot;);
+  }
+}</code></pre></div>
+
+<p><strong>Neden?</strong></p>
+
+<p>Sınıf örneği ilk oluşturulduğunda sınıfa ait <strong>yapıcı</strong> çağırılacak. Yapıcının alacağı parametreler sınıf değişkenlerine işaret edeceği için, yapıcının içerisinde değişkenlere tekrar atama yapma gerekliliğini ortadan kaldıracak, aynı zamanda başlangıçta null olarak oluşan <strong>modelName/maxSpeed</strong> değişkenlerinin içerisini de dolduracağından <strong>late</strong> anahtar kelimesi ile tanımlanması zorunluluğunu ortadan kaldıracaktır.</p>
+
+<p>Şimdiye kadarki örneklerimizi de göz önünde bulundurarak, <strong>yapıcı</strong> içerisinde <strong>this</strong> anahtar sözcüğü ile ilgili şöyle bir özet geçebiliriz.</p>
+
+<p><strong>this anahtar sözcüğüyle,</strong></p>
+
+<p><strong>1.</strong> Geçerli sınıf nesnesini işaret etmek için kullanabilirsiniz.</p>
+
+<p><strong>2.</strong> Mevcut sınıf değişkenlerine atıfta bulunmak için kullanabilirsiniz.</p>
+
+<p><strong>3.</strong> Mevcut sınıf yapıcısını somutlaştırabilir veya çağırabilirsiniz.</p>
+
+<p><strong>4.</strong> Yapıcı çağrısında parametre olarak geçebilirsiniz.</p>
+
+<p><strong>5.</strong> Metot çağrısında parametre olarak geçebilirsiniz.</p>
+
+<p><strong>6.</strong> Sınıf ve yapıcı arasındaki adlandırma çatışmasını ortadan kaldırabilirisiniz.</p>
+
+<p><strong>7.</strong> Geçerli sınıf örneğini döndürmek için kullanılabilirsiniz.</p>
+
+<h2 id="toc_7">Derinlemesine Detaylar</h2>
+
+<p><strong>Dart</strong>&#39;da yapıcılar ile ilgili temel bilgilere sahip olmuş olduk. Bu başlık ile birlikte biraz daha ince detaylara göz atacağız.</p>
+
+<h3 id="toc_8">Varsayılan Değerli Yapıcı Oluşturma</h3>
+
+<p><strong>Parameterized Constructor (Parametreli Yapıcı)</strong> ve <strong>Named Constructor (Adlandırılmış Yapıcı)</strong> türlerinde, sınıfın bir örneğini oluştururken parametre kullanarak yapılabildiğini öğrenmiştik. </p>
+
+<p>Peki bunları oluştururken bazı alanları <strong>varsayılan (default)</strong> olarak belirlemek mümkün mü? Sorumuzun cevabı <strong>Evet</strong>.</p>
+
+<p>Hadi nasıl yapıldığına bir göz atalım..</p>
+
+<p>Öncelikle aşağıdaki gibi örnek bir sınıf oluşturalım.</p>
+
+<div><pre><code class="language-none">class YazilimGelistirici {
+  String uzmanlikAlani;
+  int tecrube;
+  bool aktifKodYaziyorMu;
+   
+  YazilimGelistirici(this.uzmanlikAlani, this.tecrube, this.aktifKodYaziyorMu);
+}
+ 
+void main() {
+  YazilimGelistirici(&quot;Dart&quot;, &quot;1&quot;, false);
+}</code></pre></div>
+
+<p>Sınıfımız <strong>String</strong> tipinde <strong>uzmanlikAlani</strong>, <strong>integer</strong> tipinde <strong>tecrube</strong> ve <strong>bool</strong> tipinde <strong>aktifKodYaziyorMu</strong> olmak üzere <strong>3</strong> parametre alan bir yapıcıya sahip.</p>
+
+<p>Sınıf örneğini oluştururken bu 3 parametreyi almak yerine <strong>uzmanlikAlani</strong> ve <strong>tecrube</strong> bilgilerini almayı, varsayılan olarak da <strong>aktifKodYaziyorMu</strong> alanını <strong>true</strong> değeri ile almak istersek kodumuzu nasıl düzenlememiz gerekir?</p>
+
+<p>Bunun için örneğimizi şu şekilde değiştirebiliriz.</p>
+
+<div><pre><code class="language-none">class YazilimGelistirici {
+  String uzmanlikAlani;
+  int tecrube;
+  bool aktifKodYaziyorMu;
+   
+  YazilimGelistirici(this.uzmanlikAlani, this.tecrube): aktifKodYaziyorMu = true;
+}
+ 
+void main() {
+  YazilimGelistirici(&quot;Dart&quot;, 3);
+}</code></pre></div>
+
+<p>Yapıcımızı çağırdığımız satırda, <strong>iki noktanın (:)</strong> sağ tarafına yerleştirilen tanımlamalar ile bunu gerçekleştirmek mümkündür. Böylece kullanıcıdan bu parametre alınmaz ve varsayılan olarak değer verilebilir.</p>
+
+<p>Eğer birden fazla varsayılan kullanmak isterseniz, <strong>virgül (,)</strong> ile ayırarak bunları arttırabilirsiniz.</p>
+
+<p>Bu çalışma şeklini <strong>Named Constructor (Adlandırılmış Yapıcı)</strong> türlerinde de aşağıdaki gibi kullanabilirsiniz.</p>
+
+<div><pre><code class="language-none">class YazilimGelistirici {
+  String uzmanlikAlani;
+  int tecrube;
+  bool aktifKodYaziyorMu;
+   
+  YazilimGelistirici(this.uzmanlikAlani, this.tecrube, this.aktifKodYaziyorMu);
+  YazilimGelistirici.ozelYapici(this.uzmanlikAlani, this.tecrube): aktifKodYaziyorMu = true;
+}
+ 
+void main() {
+  YazilimGelistirici(&quot;Dart&quot;, 3, false);
+  YazilimGelistirici.ozelYapici(&quot;Flutter&quot;, 5);
+}</code></pre></div>
+
+<h3 id="toc_9">Mevcut bir sınıfın yeni örneklerini (instances) oluşturmayan yapıcı</h3>
+
+<p>Aslında bu başlıkla anlatmaya çalıştığımız yapıcının adı <strong>fabrika yapıcı (factory constructor</strong>).</p>
+
+<p><strong>Fabrika yapıcı (factory constructor)</strong>, nesnelerin oluşturulması ve yönetilmesi ile ilgili özellikleri çerçeveleyen <strong>Creational Design Patterns (Oluşturucu Tasarım Desenleri)</strong> türü içerisinde yer alan <strong>Factory Design Pattern</strong> tekniğini kullanan bir yapıcıdır.</p>
+
+<p>Bir <strong>Fabrika modelinde (Factory pattern)</strong>, oluşturma mantığını istemciye göstermeden nesneler yaratır ve ortak bir arayüz kullanarak yeni oluşturulan nesnelere başvurur.</p>
+
+<p>Bunu nasıl kullandığımızı çok standart ve küçük, fakat temel bir örnekle başlayalım.</p>
+
+<div><pre><code class="language-none">enum MessageType {
+  sms,
+  email,
+  notification
+}
+
+abstract class Message {
+  factory Message(MessageType messageType) {
+    switch (messageType) {
+      case MessageType.sms: return Sms();
+      case MessageType.email: return Email();
+      case MessageType.notification: return Notification();
+      default: return Sms();
+    }
+  }
+
+  void send();
+}
+
+class Sms implements Message {
+  @override
+  void send() {
+    print(&quot;SMS&quot;);
+  }
+}
+
+class Email implements Message {
+  @override
+  void send() {
+    print(&quot;EMAIL&quot;);
+  }
+}
+
+class Notification implements Message {
+  @override
+  void send() {
+    print(&quot;NOTIFICATION&quot;);
+  }
+}</code></pre></div>
+
+<p>Örneğimizde <strong>Sms</strong>, <strong>Email</strong> ve <strong>Notification</strong> sınıflarına, <strong>factory</strong> metodunu <strong>yapıcı</strong> olarak uyguladığımız <strong>Message</strong> sınıfı implemente edilmiştir (uygulanmıştır). <strong>OOP</strong> yaklaşımında <strong>Polimorfizm (Çok Biçimlilik)</strong>&#39;in de katkılarıyla, <strong>Message</strong> sınıfın özellik ve metotlarını, <strong>Message</strong> sınıfını implemente eden bir sınıfa aktardığımızda, <strong>Message</strong> sınıfına ait metotları implemente edilmiş sınıf içerisinde de (<em>Sms, Email ve Notification sınıfları</em>) kullanabiliriz.</p>
+
+<p><strong>Sms</strong>, <strong>Email</strong> ve <strong>Notification</strong> sınıfları, <strong>send</strong> metodunu <strong>override</strong> ederek, implemente ettikleri <strong>Message</strong> sınıfının <strong>send</strong> metodunu geçersiz kılar. Böylece <strong>Message</strong> sınıfındaki <strong>factory</strong> metodu her sınıf için ayrı bir <strong>send</strong> metodu sağlamış olur. Bunun yanında uygulamanızın çalışma zamanında hangi örneğin döndürüleceğine karar vermenize imkan tanıyor olması, önemli özelliklerinden biridir.</p>
+
+<p>Buna göre örneğimizi aşağıdaki gibi çağırdığımızda,</p>
+
+<div><pre><code class="language-none">void main(){
+    Message(MessageType.sms).send();
+    Message(MessageType.email).send();
+    Message(MessageType.notification).send();
+}</code></pre></div>
+
+<p>Çıktısı şu şekilde olacaktır.</p>
+
+<div><pre><code class="language-none">SMS
+EMAIL
+NOTIFICATION</code></pre></div>
+
+<blockquote>
+<p>Bu çalışma şeklini <strong>adlandırılmış yapıcı (named constructor)</strong> ile de kullanabilirsiniz.</p>
+</blockquote>
+
+<h3 id="toc_10">Değiştirilemez nesnelere sahip, sabit yapıcılar (Constant Constructors)</h3>
+
+<p><strong>Dart</strong>, <strong>sabit yapıcılar (constant constructor)</strong> oluşturmanıza imkan veren bir dildir. Bu yapıcınının özelliği; sınıfınızı oluşturduktan sonra değiştirilmeyecek bir nesneyi temsil ediyor olmasıdır. Bundan dolayı da tüm sınıf alanları <strong>final</strong> olarak tanımlanması gerekir.</p>
+
+<p>Buna göre aşağıdaki örneğimizi hazırlayalım.</p>
+
+<div><pre><code class="language-none">class CarConst {
+  static const CarConst carConstObject = CarConst(&quot;Fiat&quot;, 160);
+
+  final String modelName;
+  final int maxSpeed;
+
+  const CarConst(this.modelName, this.maxSpeed);
+}
+
+void main(){
+    print(CarConst.carConstObject.modelName);
+}</code></pre></div>
+
+<p>Çıktımız aşağıdaki gibi olacaktır.</p>
+
+<div><pre><code class="language-none">Fiat</code></pre></div>
+
+<p>Örneğimizde dikkat ettiyseniz yapıcımızın gövdesi bulunmuyor. Çünkü <strong>sabit yapıcılar (constant constructor)</strong>&#39;ın bir gövdesi olmaz. Dolayısı ile bu örneği aşağıdaki gibi yazamazdık.</p>
+
+<div><pre><code class="language-none">const CarConst(this.modelName, this.maxSpeed) {
+  print(&quot;Bu arabanın model adı/hız:  $modelName/$maxSpeed.&quot;);
+}</code></pre></div>
+
+<h3 id="toc_11">Başka bir yapıcıya yönlendirme yapan yapıcı. (Redirecting Constructors)</h3>
+
+<p><strong>Yeniden yönlendiren yapıcılar (redirecting constructor)</strong>&#39;ın tanımı tam da başlığımızda belirttiğimiz gibi. Bu yapıcının tek bir amacı var. O da aynı sınıftaki başka bir yapıcıya yönlendirme yapmak.</p>
+
+<blockquote>
+<p>Yeniden yönlendiren bir oluşturucunun gövdesi boştur ve yapıcı çağrısı, iki nokta üst üste (:) sonrasında gerçekleştirilir.</p>
+</blockquote>
+
+<p>Hadi bunu örneklendirelim!</p>
+
+<div><pre><code class="language-none">class CarRedirect {
+  String modelName;
+  int totalKilometers;
+
+  CarRedirect(this.modelName, this.totalKilometers){
+    print(&quot;Bu arabanın model adı/kilometre:  $modelName/$totalKilometers.&quot;);
+  }
+  
+  CarRedirect.newcar(String name) : this(name, 0);
+}
+
+void main(){
+    CarRedirect.newcar(&quot;Fiat&quot;);
+}</code></pre></div>
+
+<p>Örneğimizdeki <strong>CarRedirect</strong> sınıfının <strong>redirecting constructor&#39;ı (yeniden yönlendiren yapıcı)</strong>, yalnızca <strong>String</strong> tipinde bir parametre alır. Aynı satırda <strong>iki nokta üst üste (:)</strong> sonrasında asıl yapıcıya yönlendirme yapar ve <strong>totalKilometers</strong> parametresini varsayılan <strong>0</strong> olarak gönderir. Gelen bu parametreler ile asıl yapıcı işletilecek ve yapıcı gövdesindeki print fonksiyonu ile aşağıdaki çıktı oluşacaktır.</p>
+
+<div><pre><code class="language-none">Bu arabanın model adı/kilometre:  Fiat/0.</code></pre></div>
+
+<h3 id="toc_12">Super Constructors (Super Yapıcılar)&#39;ın kullanılması</h3>
+
+<p><strong>Dart</strong>&#39;ta <strong>extends</strong> anahtar kelimesiyle alt sınıf, üst sınıfın tüm değişkenlerini (<strong>variables</strong>) ve yöntemlerini (<strong>methods</strong>) devralabilir. Fakat üst sınıfın yapıcısını devralamaz. Bunu Dart&#39;ta <strong>super</strong> yapıcıyı çağırarak gerçekleştiriyoruz.</p>
+
+<p>Super yapıcıyı çağırmanın iki yolu bulunuyor. Bunlar;</p>
+
+<ul>
+<li><strong>Implicitly</strong> (Dolaylı olarak, kapalı, örtük)</li>
+<li><strong>Explicitly</strong> (Açıkça)</li>
+</ul>
+
+<p><strong>Implicit super:</strong></p>
+
+<p><strong>Implicit</strong> türü <strong>super constructor</strong> kullanımında, derleyici <strong>super</strong> anahtar kelimesini kullanmaya gerek duymaksızın, bizim için otomatik veya dolaylı olarak bu işlemi gerçekleştirir. Bir sınıfın yeni bir nesnesi oluşturulduğunda, bu sınıfın yapıcısı çağırılırken, sahip olduğu üst sınıfın varsayılan yapıcısını da dolaylı olarak çağırır.</p>
+
+<blockquote>
+<p>Burada <strong>super</strong> anahtar kelimesini kullanmıyoruz. Fakat alt sınıf kurucusu çağrıldığında, varsayılan üst sınıf kurucusu otomatik veya dolaylı olarak çağırılmış oluyor.</p>
+</blockquote>
+
+<p>Bir <strong>üst sınıfı (Hayvan sınıfı)</strong> ve bir <strong>alt sınıfı  (Penguen sınıfı)</strong> olan, her iki sınıfın da <strong>iki kurucuya sahip</strong> olduğu bir örnek hazırlayalım. </p>
+
+<p><strong>Implicitly (Dolaylı)</strong> çağırırken parametresiz olarak <strong>super</strong> yapıcıyı şu şekilde kullanırız:</p>
+
+<div><pre><code class="language-none">class Hayvan {
+  Hayvan(){
+    print(&quot;Parent Class Hayvan&quot;);
+  }
+}
+
+class Penguen extends Hayvan {
+
+  Penguen() {
+    print(&quot;Sub Class Penguen&quot;);
+  }
+
+  show(){
+    print(&quot;Sub Class içindeki show metodu&quot;);
+  }
+}
+
+main(){
+   var penguenObj = Penguen();
+   penguenObj.show();
+}</code></pre></div>
+
+<p>çalıştırdığımızda aşağıdaki gibi bir çıktı oluşacaktır.</p>
+
+<div><pre><code class="language-none">Parent Class Hayvan
+Sub Class Penguen
+Sub Class içindeki show metodu</code></pre></div>
+
+<p><strong>main</strong> metodu içerisinde</p>
+
+<div><pre><code class="language-none">var penguenObj = Penguen();</code></pre></div>
+
+<p>satırı çağırıldığında, <strong>Penguen</strong> sınıfının yapıcısına gidilir. <strong>Alt sınıf (Penguen)</strong> için bir nesne oluşturduğumuzda, <strong>dolaylı olarak (Implicit)</strong> üst sınıfın içindeki yapıcı da çağrılacaktır. Böylece ekrana yazacak ilk cümle,</p>
+
+<div><pre><code class="language-none">Parent Class Hayvan</code></pre></div>
+
+<p>olacaktır. Ardından alt sınıfın yapıcısına geri dönecek ve</p>
+
+<div><pre><code class="language-none">Sub Class Penguen</code></pre></div>
+
+<p>satırını yazacaktır. Böylece yapıcılar ile ilgili işlemler bittikten sonra </p>
+
+<div><pre><code class="language-none">penguenObj.show();</code></pre></div>
+
+<p>satırı çalışacak ve <strong>show</strong> metodu içerisindeki <strong>print</strong> fonksiyonu ekrana </p>
+
+<div><pre><code class="language-none">Sub Class içindeki show metodu</code></pre></div>
+
+<p>yazacaktır.</p>
+
+<p>Aynı örneğimizi aşağıdaki gibi parametreli olarak da kullanabiliriz.</p>
+
+<div><pre><code class="language-none">class Hayvan {
+  Hayvan(){
+    print(&quot;Parent Class Hayvan&quot;);
+  }
+}
+
+class Penguen extends Hayvan {
+
+  Penguen (String name) {
+    print(&quot;Sub Class Penguen&quot;);
+  }
+
+  show(){
+    print(&quot;Sub Class içindeki show metodu&quot;);
+  }
+}
+
+main(){
+   var penguenObj = Penguen(&quot;Metin tipinde bir isim&quot;);
+   penguenObj.show();
+}</code></pre></div>
+
+<p>Bu kullanım şeklinde de çıktı değişmeyecektir.</p>
+
+<blockquote>
+<p>Implict super yapıcıyı ister parametreli ister parametresiz kullanın, üst sınıfın yapıcısı mutlaka varsayılan yapıcı olmalıdır.</p>
+</blockquote>
+
+<p><strong>Explicit super:</strong></p>
+
+<p>Implict super yapıcı örneğimiziden farklı olarak <strong>üst sınıfın yapıcısı eğer varsayılan değilse</strong>, yani parametre alıyorsa, alt sınıfın yapıcısında <strong>super</strong> anahtar kelimesi kullanarak çağırılır.</p>
+
+<p>Buna göre <strong>Explicit super yapıcı</strong>yı çağırırken şu şekilde kullanırız:</p>
+
+<div><pre><code class="language-none">class Hayvan {
+   Hayvan(String prmt){
+      print(&quot;Parent Class Hayvan&quot;);
+      print(&quot;Parent Class parametre: $prmt&quot;);
+   }
+}
+
+class Penguen extends Hayvan {
+   
+  Penguen() : super(&quot;Super Parametre&quot;) {
+    print(&quot;Sub Class Penguen&quot;);
+  }
+
+  show(){
+    print(&quot;Sub Class içindeki show metodu&quot;);
+  }
+}
+
+main(){
+   var penguenObj = Penguen();
+   penguenObj.show();
+}</code></pre></div>
+
+<p>Alt sınıfın kurucusunda açık açık <strong>super</strong> metodu ile üst sınıfın yapıcısını <strong>parametre</strong> göndererek çağırırız. Böylece şöyle bir çıktı oluşur.</p>
+
+<div><pre><code class="language-none">Parent Class Hayvan
+Parent Class parametre: Super Parametre
+Sub Class Penguen
+Sub Class içindeki show metodu</code></pre></div>
+
+<p><strong>main</strong> metodu içerisinde</p>
+
+<div><pre><code class="language-none">var penguenObj = Penguen();</code></pre></div>
+
+<p>satırı çağırıldığında, <strong>Penguen</strong> sınıfının yapıcısına gidilir. Biz burada <strong>super</strong> metodunu açık açık parametresi ile birlikte yazarak, <strong>Hayvan</strong> sınıfının (miras alınan üst sınıf) yapıcısının işletilmesini isteriz. Böylece ekrana yazacak ilk cümle,</p>
+
+<div><pre><code class="language-none">Parent Class Hayvan
+Parent Class parametre: Super Parametre</code></pre></div>
+
+<p>olacaktır. Ardından alt sınıfın yapıcısına geri dönecek ve</p>
+
+<div><pre><code class="language-none">Sub Class Penguen</code></pre></div>
+
+<p>satırını yazacaktır. Böylece yapıcılar ile ilgili işlemler bittikten sonra </p>
+
+<div><pre><code class="language-none">penguenObj.show();</code></pre></div>
+
+<p>satırı çalışacak ve <strong>show</strong> metodu içerisindeki <strong>print</strong> fonksiyonu ekrana </p>
+
+<div><pre><code class="language-none">Sub Class içindeki show metodu</code></pre></div>
+
+<p>yazacaktır.</p>
+
+<blockquote>
+<p><strong>Not.1:</strong> İki kullanım şeklinde de parametresiz kullanımda <strong>super</strong> anahtar kelimesini kullanabilirsiniz. Ancak <strong>Implict super</strong> kullanım şeklinde <strong>super</strong> anahtar kelimesini yazmadan da aynı işlemi gerçekleştirebilirsiniz. Yani parametresiz işlemde alt sınıfın yapıcısında  <strong>Penguen() : super()</strong> ile <strong>Penguen()</strong> yazımı arasında fark yoktur.</p>
+
+<p><strong>Not.2:</strong> Bu işlemleri <strong>Named Constructors (Adlandırılmış Yapıcılar)</strong> ile de gerçekleştirebilirsiniz.</p>
+</blockquote>
+
+<h3 id="toc_13">Private Named Constructors (Özel Adlandırılmış Yapıcılar)&#39;ı kullanmak</h3>
+
+<p>Bu yapıcıyı, özellikle <strong>statik değişkenler (static variables)</strong> veya <strong>yöntemler (static methods)</strong> oluşturmanız gerektiğinde kullanmalısınız.</p>
+
+<p><strong>Statik değişkenler (static variables)</strong> ve <strong>yöntemler (static methods)</strong>, bulunduğu sınıflara ait olan varlıklardır. Bu sebeple bu varlıkları sadece bir sınıf örneği oluşturduğunuzda kullanabilirsiniz. Özel adlandırılmış yapıcıları ise bu sınıf örneğinin oluşturulmasına izin vermediğinden dolayı, <strong>statik değişkenler (static variables)</strong> ve <strong>yöntemlere</strong> direkt olarak erişim sağlamalısınız.</p>
+
+<p><strong>Dart</strong> dilinde diğer bir çok dilde görmeye alışkın olduğumuz <strong>private</strong> anahtar kelimesi bulunmaz. Bunun yerine <strong>alt çizgi (_)</strong> ile adlandırılmış yapıcı kullanılarak özel ile bir yapıcı elde edilebilir.</p>
+
+<div><pre><code class="language-none">class AppConsts {
+  AppConsts._();
+}
+
+void main() {
+  var appConsts = AppConsts();
+
+}</code></pre></div>
+
+<p>Yukarıdaki örneğimizde olduğu gibi bir sınıfın nesnesini oluşturuyorsanız,</p>
+
+<div><pre><code class="language-none">Couldn&#39;t find constructor &#39;AppConsts&#39;</code></pre></div>
+
+<p>şeklinde bir derleme hata alırsınız. Çünkü bu yapıcının en önemli vazifesi <strong>sınıfın örneğinin oluşturulmasına izin vermemesidir</strong>. Tam da bu sebepten dolayı başta da belirttiğimiz gibi özellikle <strong>statik değişkenler (static variables)</strong> veya <strong>yöntemler (static methods)</strong> için kullanılması gerekir ve yine bu sebeple, özel adlandırılmış yapıcılar, <strong>Singleton kalıbı (pattern)</strong> oluşturmak için oldukça kullanışlıdır.</p>
+
+<p>Örneğimizi biraz daha geliştirelim.</p>
+
+<div><pre><code class="language-none">class AppConsts {
+  AppConsts._();
+
+  static const String testEndpoint = &quot;http://www.google.com/1&quot;;
+  static const String devEndpoint = &quot;http://www.google.com/2&quot;;
+  
+  static String exportSuffix(String name){
+    return &quot;$name.dev&quot;;
+  }
+}
+
+main() {
+  print(AppConsts.testEndpoint);
+  print(AppConsts.devEndpoint);
+  print(AppConsts.exportSuffix(&quot;appconst&quot;));
+}</code></pre></div>
+
+<p>Görüldüğü üzere <strong>AppConsts</strong> sınıfından yeni bir örnek üretmedik. Ancak içeride <strong>static</strong> olarak tanımladığımız <strong>metot</strong> ve <strong>değişkenlere</strong> dışarıdan sorunsuz bir şekilde ulaştık. Buna göre çıktımız da aşağıdaki gibi oluştu.</p>
+
+<div><pre><code class="language-none">http://www.google.com/1
+http://www.google.com/2
+appconst.dev</code></pre></div>
+
+<p>Bu kullanım şeklinin dışında aşağıdaki örnekte olduğu gibi, belli sınıfların örneğinin oluşmasını istemiyorsanız, <strong>super constructor</strong> ile de kullanabilirsiniz.</p>
+
+<div><pre><code class="language-none">class Calisan {
+  Calisan._() {
+    print(&quot;Bu işi yapalım.&quot;);
+  }
+}
+
+class Patron extends Calisan {
+  Patron() : super._();
+}
+
+void main() {
+  var patron = Patron();
+}</code></pre></div>
+
+<blockquote>
+<p>Egemen MEDE - 19.09.2022</p>
+</blockquote>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>SOLID Prensipleri</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Dart ile SOLID Prensiplerinin Kullanımı</h1>
+
+<p><strong>SOLID</strong> prensipleri yazılımcıların sürdürülebilir, genişletilebilir, yeniden kullanılabilir ve <strong>Robert C. Martin (nam-ı diğer Bob Amca)</strong> tarafından <strong>Design Principles and Design Patterns</strong> kitabında temel yazılım geliştirme prensipleri olarak tanımlanır.</p>
+
+<p>Her ne kadar <strong>SOLID</strong> şeklinde kısaltmış olsak da asıl kısaltması <strong>S.O.L.I.D.</strong> şeklindedir. Çünkü bu kelime, temelde bir <strong>bağımlılık yönetimi (dependency management)</strong> biçimi olan, <strong>nesne yönelimli tasarımın (Object-Oriented Design - OOD)</strong> ilk <strong>5</strong> İlkesini oluşturur.</p>
+
+<p>Peki bu prensipleri kullanmazsak ne olur?</p>
+
+<p>Bu prensipler kullanılmadan elbette kod yazabilirsiniz. Ancak gerçek anlamda <strong>&quot;iyi kod&quot;</strong> yazmak ve tanımı içerisinde bahsettiğimiz özelliklere haiz olmak için kullanmak, gereklilik seviyesinde önemlidir. </p>
+
+<p>Hatta <strong>Robert C. Martin (Bob Amca)</strong>&#39;in <strong>Clean Code</strong> kitabındaki <strong>Bad Code</strong> bölümünde, 80&#39;lerde popüler olmuş bir yazılımı üreten şirketin, <strong>kötü kod</strong> sebebiyle kapandığı bir hikayeyi anlatır. Olmaz demeyin! Bir yazılım şirketinin kapanmasına dahi sebep olabiliyor..</p>
+
+<p>Biz de bu yazımızda <strong>SOLID</strong> prensiplerinin Dart dili ile kullanım örneklerini inceleyeceğiz. Zira bu prensipler nesne yönelimli yazılım geliştirme tekniklerinin kullanıldığı tüm diller ile uygulanabilir prensiplerdir.</p>
+
+<p>Hadi başlayalım.. Ama önce şuraya bir yol haritası bırakalım.</p>
+
+<h2 id="toc_1">SOLID Prensipleri</h2>
+
+<p><strong>S: Single Responsibility Principle / Tek Sorumluluk Prensibi (SRP)</strong></p>
+
+<p><em>Bir sınıfın değişmesi için tek bir nedeni olmalıdır, yani bir sınıfın yalnızca bir işi olmalıdır.</em></p>
+
+<p><strong>O: Open–Closed Principle / Açık-Kapalı Prensibi (OCP)</strong></p>
+
+<p><em>Nesneler veya varlıklar, genişletme için açık ancak değişiklik için kapalı olmalıdır.</em></p>
+
+<p><strong>L: Liskov Substitution Principle / 
+Liskov’un Yerine Geçme Prensibi (LSP)</strong></p>
+
+<p><em>Bir programdaki nesnelerin, o programın doğruluğunu değiştirmeden alt sınıflarının örnekleriyle değiştirilebilmesini gerektirir.</em></p>
+
+<p><strong>I: Interface Segregation Principle / Arayüz Ayrıştırma Prensibi (ISP)</strong></p>
+
+<p><em>Bir istemci asla kullanmadığı bir arabirimi(interface) uygulamaya zorlanmamalı veya istemciler kullanmadıkları yöntemlere bağımlı olmaya zorlanmamalıdır.</em></p>
+
+<p><strong>D: Dependency Inversion Principle / Bağımlılığın Ters Çevrilmesi Prensibi (DIP)</strong></p>
+
+<p><em>Varlıklar, somutlaştırmalara değil, soyutlamalara dayanmalıdır. Yüksek seviyeli modülün düşük seviyeli modüle bağlı olmaması gerektiğini, ancak soyutlamalara bağlı olması gerektiğini belirtir.</em></p>
+
+<h3 id="toc_2"><strong>S: Single Responsibility Principle / Tek Sorumluluk Prensibi (SRP)</strong></h3>
+
+<p><strong>SOLID</strong>&#39;in <strong>&quot;S&quot;</strong> sini oluşturan prensiptir. Adından içeriği anlaşılan prensiplerden biridir aslında. <strong>&quot;Tek Sorumluluk İlkesi&quot;</strong> olarak da bilinen bu prensibe göre, her class veya metod&#39;un tek bir sorumluluğu olmalıdır. Bir diğer deyişle yapması gereken yalnızca bir işi olması gerekir ve böylece bir nedenden dolayı değişebileceğini belirtir.</p>
+
+<blockquote>
+<p>Robert C. Martin, &quot;Clean Code: A Handbook of Agile Software Craftsmanship&quot; kitabında fonksiyonlara ait clean code prensiplerini açıklarken,</p>
+
+<p><strong>Function should do one thing. They should do it well. They should do it only.</strong></p>
+
+<p>şeklinde belirterek, fonksiyonlarında aslında SRP gibi çalışması gerektiğini belirtmiştir.</p>
+</blockquote>
+
+<p>Zira bir sınıf ya da metot ne kadar çok sorumluluk alırsa, o kadar fazla değişime uğramak zorunda kalacak, bu da basitliği azaltacak, daha fazla test yazmanıza sebebiyet verecek, kodunuzun bağımlık oranını arttıracak ve dolayısı ile kod yönetimizi zorlaştıracaktır. Tam da bu sebeplerden ötürü sınıflarımız tek sorumluluğun dışına çıkmamalıdır.</p>
+
+<blockquote>
+<p><strong><a href="https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html">Küçük bir okuma</a></strong></p>
+</blockquote>
+
+<p>Bu prensibin teorisini anladığımıza göre daha deneysel bir çalışma için örneğimize geçebiliriz.</p>
+
+<div><pre><code class="language-none">class Student {
+  String studentName;
+  int studentNo;
+  String studentSchoolName;
+  
+  Student(this.studentName, this.studentNo, this.studentSchoolName){}
+ 
+  void printStudentMarks(int studentNo) { /*...*/}
+  
+  bool studentRegister() { /*...*/}
+}</code></pre></div>
+
+<p><strong>Student</strong> sınıfımızın içerisinde detaylarına girmediğimiz <strong>printStudentMarks</strong> ve <strong>studentRegister</strong> metotlarına ihtiyacımız var, ancak <strong>Student</strong> sınıfının içerisinde değil. Çünkü bu metotlarda yapılacak olan bir değişiklik, sınıfın tamamını etkileyecek ve tek sorumluluğun dışına çıkaracaktır. Bu sebeple sınıflarınız ya da metotlarınızın yalnızca bir işi olması gerekir.</p>
+
+<h3 id="toc_3"><strong>O: Open–Closed Principle / Açık-Kapalı Prensibi (OCP)</strong></h3>
+
+<p><strong>OCP</strong>&#39;yi özetleyen <em>&quot;Nesneler veya varlıklar, genişletme için açık ancak değişiklik için kapalı olmalıdır.&quot;</em> cümlesi en yalın haliyle şunu belirtir. <em>Mevcut kaynak kodunu değiştirmeden yeni davranışlar, yeni özellikler kodunuza ekleyebilmelisiniz.</em> Eğer bunu gerçekleştiremiyorsanız anlayın ki <strong>Open-Closed</strong> prensibini çiğniyorsunuz.</p>
+
+<p>Hadi yine bunu sahada daha iyi anlayalım. Aşağıdaki gibi <strong>3</strong> sınıfımız var. Sınıflarımızdan biri <strong>Rectangle/Dikdörtgen</strong>, biri <strong>Circle/Daire</strong>, diğeri de <strong>AreaCalculator</strong> ismi ile bu şekillerin alanlarını hesapladığımız sınıflar.</p>
+
+<div><pre><code class="language-none">class Rectangle {
+  final double width;
+  final double height;
+
+  Rectangle(this.width, this.height);
+}
+
+class Circle {
+  final double radius;
+  double get PI =&gt; 3.1415;
+  
+  Circle(this.radius);
+}
+
+class AreaCalculator {
+  double calculate(Object shape) {
+    if (shape is Rectangle) {
+      return shape.width * shape.height;
+    } else {
+      Circle c = shape as Circle;
+      return c.radius * c.radius * c.PI;
+    }
+  } 
+}
+
+main() {
+  var areaCalculator = AreaCalculator();
+  print(areaCalculator.calculate(Rectangle(2,4)));
+  print(areaCalculator.calculate(Circle(2)));
+}</code></pre></div>
+
+<p>Örneğimizi de çalıştırdığımız da aşağıki gibi çıktılarını da üretecektir.</p>
+
+<div><pre><code class="language-none">8
+12.566</code></pre></div>
+
+<p>Örneğimizi irdelediğimizde, <strong>AreaCalculator</strong> sınıfı içerisinde bulundurduğu <strong>calculate</strong> metodu ile kendisine argüman olarak verilen <strong>Object</strong> tipindeki bir değer alıyor. Aldığı bu değer ile gelen nesnenin <strong>Rectangle</strong> veya <strong>Circle</strong> olma durumuna göre de gerekli <strong>alan hesaplama</strong> işlemini gerçekleştiriyor.</p>
+
+<p>Görünüşe göre bir şey yok ve kodumuzda çalışıyor ama literatürdeki söylemiyle <strong>code smells</strong> yani <strong>kod kokuyor</strong>.</p>
+
+<p>Peki bu kokunun kaynağı ne?</p>
+
+<p>Her bir sınıf alan hesabı için ihtiyaç duyduğu argümanları <strong>constructor</strong>&#39;ları yardımı ile elde ediyor ve <strong>AreaCalculator</strong> sınıfı içerisinde tiplerine göre ayrılarak alan hesaplaması yapılıyor. </p>
+
+<p>Bu örneğimize aynı zamanda <strong>Triangle/Üçgen</strong> alanının da hesaplanmasını eklesek ne yapmamız gerekecekti?</p>
+
+<p>Hadi bu sorunun cevabını bulmak için örneğimizi revize edelim.</p>
+
+<div><pre><code class="language-none">class Rectangle {
+  final double width;
+  final double height;
+
+  Rectangle(this.width, this.height);
+}
+
+class Circle {
+  final double radius;
+  double get PI =&gt; 3.1415;
+  
+  Circle(this.radius);
+}
+
+class Triangle {
+  final double height;
+  final double base;
+  
+  Triangle(this.base, this.height);
+}
+
+class AreaCalculator {
+  double calculate(Object shape) {
+    if (shape is Rectangle) {
+      return shape.width * shape.height;
+    } else if (shape is Circle) {
+      return shape.radius * shape.radius * shape.PI;
+    } else {
+      Triangle t = shape as Triangle;
+      return (t.base * t.height) / 2;
+    }
+  } 
+}
+
+main() {
+  var areaCalculator = AreaCalculator();
+  print(areaCalculator.calculate(Rectangle(2,4)));
+  print(areaCalculator.calculate(Circle(2)));
+  print(areaCalculator.calculate(Triangle(6,3)));
+}</code></pre></div>
+
+<p>Yeni çıktımız da bu şekilde oluştu ve sorunsuz çalıştı.</p>
+
+<div><pre><code class="language-none">8
+12.566
+9</code></pre></div>
+
+<p>Ancak <strong>OCP prensibi</strong> bize ne diyordu?</p>
+
+<blockquote>
+<p>Mevcut kaynak kodunu değiştirmeden yeni davranışlar, yeni özellikler kodunuza ekleyebilmelisiniz.</p>
+</blockquote>
+
+<p>Biz ne yaptık?</p>
+
+<p><strong>1.</strong> Yeni bir Class ekledik. Burada bir sorun yok.</p>
+
+<p><strong>2.</strong> AreaCalculator sınıfını güncelledik.</p>
+
+<p>Prensibin dediği gibi örneğimize yeni bir özellik ekledik ancak kaynak kodunu değiştirmememiz gerektiği halde <strong>AreaCalculator</strong> üzerinde de değişiklik yapmış olduk. Daha da açık bir ifade ile prensibi ihlal etmiş olduk.</p>
+
+<p><strong>Kokunun kaynağını belirlediğimize göre bunu ortadan kaldırmak için çözümümüz ne olmalı?</strong></p>
+
+<p>Şimdi buna odaklanalım..</p>
+
+<p>Her sınıf aslında alan hesaplaması yapılması gereken bir şekli ifade ettiğine ve ortak kullandıkları sınıf aslında alan hesabını yapan bir sınıf olduğuna göre, her sınıf alan hesabını kendisi hesaplasa ve alan hesaplama sınıfı sadece ilgili şekli çağırma görevine sahip olsa ne olur?</p>
+
+<p>Hadi deneyelim!..</p>
+
+<div><pre><code class="language-none">abstract class Area {
+  double computeArea();
+}
+
+class Rectangle implements Area {
+  final double width;
+  final double height;
+
+  Rectangle(this.width, this.height);
+
+  @override
+  double computeArea() {
+    return width * height;
+  }
+}
+class Circle implements Area {
+  final double radius;
+  double get PI =&gt; 3.1415;
+
+  Circle(this.radius);
+
+  @override
+  double computeArea() {
+    return radius * radius * PI;
+  }
+}
+class Triangle implements Area {
+  final double height;
+  final double base;
+
+  Triangle(this.base, this.height);
+
+  @override
+  double computeArea() {
+    return (base * height) / 2;
+  }
+}
+
+class AreaCalculator {
+  double calculate(Area shape) {
+    return shape.computeArea();
+  }
+}
+
+main() {
+  var areaCalculator = AreaCalculator();
+  print(areaCalculator.calculate(Rectangle(2,4)));
+  print(areaCalculator.calculate(Circle(2)));
+  print(areaCalculator.calculate(Triangle(6,3)));
+}</code></pre></div>
+
+<p>Neler yaptık şimdi tekrar gözden geçirelim.</p>
+
+<p><strong>1.</strong> <strong>Area</strong> isimli bir <strong>abstract class</strong> yani bir <strong>interface</strong> oluşturmuş olduk. Böylece tüm alan hesaplamaları bu sınıf içerisinde oluşturduğumuz <strong>computeArea</strong> metodu ile gerçekleşebilecek. Böylece yeni bir davranış ekledik ancak kaynak kodumuza müdahale etmedik.</p>
+
+<p><strong>2.</strong> Bu interface&#39;i <strong>Rectangle</strong>, <strong>Circle</strong> ve <strong>Triangle</strong> sınıflarımıza <strong>implement</strong>&#39;e ettik. Böylece bu sınıflar, <strong>Area</strong> classını sahip olduğu <strong>computeArea</strong> metodunu <strong>override</strong> ederek kullanabilme şansına sahip olmuş oldu. Bu durumda başta kurguladığımız gibi artık her sınıf alan hesabını kendisi yapabiliyor.</p>
+
+<p><strong>3.</strong> 
+Son olarak <strong>AreaCalculator</strong> sınıfı <strong>calculate</strong> metodu ile sadece alanı hesaplayacak şekil bilgisini alması yeterli hale geldi. Zira bu bilgi ile direkt olarak her sınıf kendi <strong>computeArea</strong> metodunu çağırabilir hale gelmiş oldu.</p>
+
+<p>Bu durumda artık <strong>AreaCalculator</strong> sınıfını hiç değiştirmeden, sadece yeni alan hesabı yapılacak sınıfı eklemek yeterli hale gelecek. Tam da OCP prensibinin bizden istediği gibi!</p>
+
+<p>Ne dersiniz artık koku falan kalmadı değil mi? Hatta misler gibi kokuyor. :)</p>
+
+<h3 id="toc_4"><strong>L: Liskov Substitution Principle / Liskov’un Yerine Geçme Prensibi (LSP)</strong></h3>
+
+<p>Bahsedeceğimiz bu prensibin sahibi Amerika Birleşik Devletleri&#39;nde bilgisayar bilimi doktorası sahibi ilk kadınlardan biri olan ve Massachusetts Teknoloji Enstitüsünde profesör olarak çalışmış <strong><a href="https://tr.wikipedia.org/wiki/Barbara_Liskov">Barbara Liskov</a></strong>&#39;a, kendi adını taşıyan ikame ilkesiyle <strong>2008</strong> yılında <strong>Turing Ödülü</strong>&#39;nü kazandırmıştır. </p>
+
+<p>Varın bu prensibin önemini bir daha düşünün..</p>
+
+<blockquote>
+<p>Bu ilke Barbara Liskov tarafından ilk kez 1994 tarihli &quot;<a href="https://www.cs.cmu.edu/%7Ewing/publications/LiskovWing94.pdf">A Behavioral Notion of Subtyping</a>&quot; makalesinde açıklanmıştı.</p>
+
+<p>Let q(x) be a property provable about objects x of type T. Then q(y) should be provable for objects y of type S where S is a subtype of T.</p>
+
+<p>Nasıl? Pek anlaşılabilir değil, değil mi?</p>
+
+<p>Bob Amca (Robert Martin)&#39;da bu maddeyi şöyle özetlemiştir.</p>
+
+<p>Alt türler (Subtypes), temel türleri (base types) için ikame edilebilir olmalıdır.</p>
+
+<p>Böylesi çok daha iyi..</p>
+</blockquote>
+
+<p>Peki <strong>ikame</strong> ya da <strong>yerine geçme prensibi</strong> olarak adlandıracağımız bu prensip, kokuşmuş kodlarımıza (<strong>code smells</strong>) nasıl bir güzellik katacak anlamaya çalışalım.</p>
+
+<p><strong>LSP</strong>&#39;yi yukarıda özetlerken &quot;<strong>Bir programdaki nesnelerin, o programın doğruluğunu değiştirmeden alt sınıflarının örnekleriyle değiştirilebilmesini gerektirir.</strong>&quot; diyerek tanımladık.</p>
+
+<p><strong>Bakın burası çok önemli!</strong></p>
+
+<blockquote>
+<p>Liskov İkame İlkesi en anlaşılabilir haliyle; işlevselliğin etkilenmeden bir alt sınıfı üst sınıfıyla değiştirebilmeniz gerektiğidir. İşte tam da bu sebepten dolayı, yazılımınızda kalıtımın doğru şekilde uyguladığından emin olmanızı sağlar. Bu yönüyle bir anlamda bir doğrulama prensibidir.</p>
+</blockquote>
+
+<p>Açıkçası kod olmadan teorisini açıklaması gerçekten zor bir prensip. Bu yüzden yine yanlışlarla başlayıp, nedenleri tespit edip, çözüm üretelim.</p>
+
+<p>Bu ilkenin klasik örneği, bir <strong>Square</strong> ve bir <strong>Rectangle</strong> sınıfıdır. Bu yüzden kod örneğimize biz de buradan başlayalım.</p>
+
+<p>Örneğimiz gelsin..</p>
+
+<div><pre><code class="language-none">class Rectangle {
+  double width;
+  double height;
+  Rectangle(this.width, this.height);
+  
+  double calculateArea(width, height) {
+    return width * height;
+  }
+}
+
+class Square extends Rectangle {
+  Square(double length): super(length, length);
+}</code></pre></div>
+
+<p>Liskov İkame İlkesinin ihlaline ilişkin klasik bir örnek Dikdörtgen - Kare problemidir. Bundan dolayı elimizde bir <strong>Rectangle (Dikdörtgen)</strong> sınıfı ve bu sınıfı <strong>extend</strong> eden <strong>(miras alan)</strong> <strong>Square (Kare)</strong> sınıfı olsun. </p>
+
+<p>Bildiğiniz üzere kare, 4 eşit kenara sahip bir şekilken dikdörtgen, 2 aynı uzunlukla kısa ve 2 aynı uzunlukta uzun kenarı olan başka bir şekildir.</p>
+
+<p><strong>Rectangle</strong> sınıfı, genişlik ve yükseklik olmak üzere iki veri üyesi içerir. Ayrıca <strong>calculateArea</strong> metodu ile dikdörtgenin alanını döndürür. Fakat <strong>Square</strong> sınıfını düşünün. <strong>Square</strong> sınıfı, <strong>Rectangle</strong> sınıfını extend eder ve genişlik ile yüksekliğin eşit olduğunu varsayar. Bu durumda örneğimize göre dikdörtgenin alanı hesaplanırken iki farklı uzunluk olarak değil, aynı karede olduğu gibi alan hesabını eşit uzunluktaki iki değere göre yapmış olur.</p>
+
+<p>Zaten problem tam da burada başlıyor.. </p>
+
+<p><strong>LSP</strong> bize &quot;<em>Bir programdaki nesnelerin, o programın doğruluğunu değiştirmeden alt sınıflarının örnekleriyle değiştirilebilmesini gerektirir.</em>&quot; der ve kalıtımın doğru şekilde uyguladığından emin olmanızı sağlar. </p>
+
+<p>Olduk mu?</p>
+
+<p>O halde soralım..</p>
+
+<blockquote>
+<p>Burada mirasa gerçekten ihtiyaç var mı?</p>
+</blockquote>
+
+<p>Maalesef bu şekilde bir ikame için mirasa güvenmiyoruz ve daha ziyade interfaceleri kullanarak soyutlamalar ile ikame edilebilen kompozisyonlar üretebiliriz. Nasıl mı? sorusunun cevabını aslında <strong>OCP</strong> prensibindeki örneğimizle ile vermiş olduk.</p>
+
+<p>Bir kare gerçek dünyada bir dikdörtgen türü ve beklediğimiz gibi bir dikdörtgen&#39;den <strong>extend</strong> edilmiş olsa da prensibin de belirttiği gibi alt ve üst sınıfın örnekleri değiştirilebilir olmadığını gözlemlemiş olduk. Yani <strong>LSP</strong>, karenin bir dikdörtgenin alt türü olamayacağını söyler.</p>
+
+<p>Çalışmamız yukarıdaki örneğimizde olduğu gibi değilde dikdörtgenin değişmez olduğunu söyleseydik, bu durumda kare dikdörtgenin bir alt türü olabilirdi ve <strong>LSP</strong> ihlal edilmemiş olurdu.</p>
+
+<p>O halde daha önce de söylediğimiz gibi <strong>Liskov ikame ilkesi</strong> için  bir programın &quot;<em>doğruluğunu</em>&quot; nasıl sağladığı hakkında bilgi verir ve yazılımınızda kalıtımın doğru şekilde uyguladığından emin olmanızı sağlar diyebiliriz.</p>
+
+<h3 id="toc_5"><strong>I: Interface Segregation Principle / Arayüz Ayrıştırma Prensibi (ISP)</strong></h3>
+
+<p>Kısa açıklamasını &quot;<em>Bir istemci asla kullanmadığı bir arabirimi(interface) uygulamaya zorlanmamalı veya istemciler kullanmadıkları yöntemlere bağımlı olmaya zorlanmamalıdır.</em>&quot; şeklinde yaptığımnız prensibi biraz daha açıklayalım.</p>
+
+<p><strong>Kus</strong> adında bir <strong>abstract class</strong>&#39;ımız olsun. Bu arayüzü istediğimiz kuş cinsi sınıflarına ekleyeceğimiz için içerisinde <strong>otebilir</strong>, <strong>ucabilir</strong> ve <strong>yuzebilir</strong> adında üç metodu bulunsun.</p>
+
+<div><pre><code class="language-none">abstract class Kus {
+  void otebilir();
+  void ucabilir();
+  void yuzebilir();
+}</code></pre></div>
+
+<p>Bu arayüzü <strong>Penguen</strong>, <strong>DeveKusu</strong> ve <strong>Guvercin</strong> olmak üzere üç kuş çeşidinin sınıflarını aşağıdaki gibi implemente edelim.</p>
+
+<div><pre><code class="language-none">class Penguen implements Kus {
+  @override
+  void otebilir() {}
+
+  @override
+  void ucabilir() {}
+  
+  @override
+  void yuzebilir() {}
+}
+
+class DeveKusu implements Kus {
+  @override
+  void otebilir() {}
+
+  @override
+  void ucabilir() {}
+  
+  @override
+  void yuzebilir() {}
+}
+
+class Guvercin implements Kus {
+  @override
+  void otebilir() {}
+
+  @override
+  void ucabilir() {}
+
+  @override
+  void yuzebilir() {}
+}</code></pre></div>
+
+<p>Bildiğiniz üzere <strong>Penguen</strong>, <strong>DeveKusu</strong> ve <strong>Guvercin</strong> temelde üçü de kuş olsa da tüm özellikleri aynı değildir. Örneğin; <strong>Penguen</strong> ötebilir, yüzebilir ama uçamaz. Fakat bu özellik <strong>Kus</strong> arayüzü ile <strong>Penguen</strong> sınıfına eklendiği için bunu da içi boş bile olsa metodunu <strong>override</strong> etmek zorundasınız.</p>
+
+<p>İşte tam da bu noktada bu prensip bize başta da belirttiğimiz gibi <em>Bir istemci asla kullanmadığı bir arabirimi(interface) uygulamaya zorlanmamalı veya istemciler kullanmadıkları yöntemlere bağımlı olmaya zorlanmamalıdır.</em> der.</p>
+
+<p>Bundan dolayı bu özellikleri tek bir interface&#39;e doldurmak yerine, interface&#39;lerin bu örnekteki duruma mahal vermeyecek şekilde ayrıştırılmasını önerir.</p>
+
+<p>Hadi şimdi prensibin söylediği gibi kodumuzu düzenleyelim..</p>
+
+<div><pre><code class="language-none">abstract class otebilir {
+  void ot();
+}
+
+abstract class ucabilir {
+  void uc();
+}
+
+abstract class yuzebilir {
+  void yuz();
+}
+
+class Penguen implements otebilir, yuzebilir {
+  @override
+  void ot() {}
+
+  @override
+  void yuz() {}
+}
+
+class DeveKusu implements otebilir {
+  @override
+  void ot() {}
+
+}
+
+class Guvercin implements otebilir, ucabilir {
+  @override
+  void ot() {}
+
+  @override
+  void uc() {}
+}</code></pre></div>
+
+<p>Bu çözüm kesinlikle çok daha iyi. Zira prensibin de söylediği gibi kullanılmayacak gereksiz yöntemler yok.</p>
+
+<h3 id="toc_6"><strong>D: Dependency Inversion Principle / Bağımlılığın Ters Çevrilmesi Prensibi (DIP)</strong></h3>
+
+<p>Bağımlılığın Ters Çevrilmesi Prensibi (DIP), <em>Varlıklar, somutlaştırmalara değil, soyutlamalara dayanmalıdır. Yüksek seviyeli modülün düşük seviyeli modüle bağlı olmaması gerektiğini, ancak soyutlamalara bağlı olması gerektiğini belirtir.</em></p>
+
+<p>Kötü bir örnekle başlayalım..</p>
+
+<div><pre><code class="language-none">class Sms {
+  void sendSms() {
+    print(&quot;Sms Send&quot;);
+  }
+}
+class Mail {
+  void sendMail() {
+    print(&quot;Mail Send&quot;);
+  }
+}
+
+class MobileNotification {
+  void sendMobileNotification() {
+    print(&quot;Mobile Notification Send&quot;);
+  }
+}
+
+class MessageManager {
+  var sms = Sms();
+  var mail = Mail();
+  var mobileNotification = MobileNotification();
+  
+  void sendMessage() {
+      sms.sendSms();
+      mail.sendMail();
+      mobileNotification.sendMobileNotification();
+  }
+}
+
+main() {
+  var messageManager = MessageManager();
+  messageManager.sendMessage();
+}</code></pre></div>
+
+<p>Örneğimizde <strong>Sms</strong>, <strong>Mail</strong> ve <strong>MobileNotification</strong> olmak üzere <strong>3</strong> farklı mesaj tipini destekleyen sınıflarımız var. Ve <strong>MessageManager</strong> isimli sınıfımız, bu sınıfları kullanarak görevlerini yerine getirmesini sağlıyor. Ancak örnekte görebileceğiniz gibi üst sınıfın (<strong>MessageManager</strong>) alt sınıflara bağımlılıkları üst düzeyde ve aralarında prensibin de istediği gibi hiç bir <strong>soyutlaştırma</strong> işlemi bulunmuyor.</p>
+
+<p>Bu sıkı bağımlılıktan ötürü yeni bir mesaj gönderim tipini yazılımınıza entegre etmek istediğinizde de bu üst sınıf üzerinde değişiklikler yapmanız gerekecek sadece <strong>DIP</strong> prensibini değil, başka design prensiplerini daha çiğnemiş olacaksınız.</p>
+
+<p>Şimdi prensibe uygun iyi bir örnekle devam edelim..</p>
+
+<div><pre><code class="language-none">abstract class Message { 
+  String send();
+}
+
+class Sms implements Message {
+  @override
+  String send() {
+    return &quot;Sms Send&quot;;
+  }
+}
+class Mail implements Message {
+  @override
+  String send() {
+    return &quot;Mail Send&quot;;
+  }
+}
+class MobileNotification implements Message {
+  @override
+  String send() {
+    return &quot;Mobile Notification Send&quot;;
+  }
+}
+
+class MessageManager {
+  void sendMessage(Message message) {
+      print(message.send());
+  }
+}
+
+main() {
+  var messageManager = MessageManager();
+  messageManager.sendMessage(Sms());
+  messageManager.sendMessage(Mail());
+  messageManager.sendMessage(MobileNotification());
+  
+}</code></pre></div>
+
+<p>Örneğimizde <strong>Sms</strong>, <strong>Mail</strong> ve <strong>MobileNotification</strong> olmak üzere <strong>3</strong> farklı mesaj tipini destekleyen sınıflarımız var. Bu sınıflar <strong>Message</strong> adındaki bir <strong>arayüzü</strong> implemente ederek onun <strong>send</strong> metodunu kullanıyorlar. Tüm bunlardan bağımsız bir üst sınıf olarak bu mesajları yöneten <strong>MessageManager</strong> isimli bir sınıfımız daha bulunuyor. Ve sahip olduğu <strong>sendMessage</strong> metodu ile mesaj gönderimlerini sağlıyor.</p>
+
+<blockquote>
+<p>Hatırlayın! Benzer bir örmeği OCP prensibinde de yapmıştık.</p>
+</blockquote>
+
+<p>Ancak dikkat edecek olursanız, yeni bir mesaj tipi eklerseniz ya da başka bir deyişle yazılımınıza yeni alt sınıflar ekleseniz de <strong>Message</strong> arayüzünü implemente eden tüm classlar ile sorunsuz ve değişiklik yapmadan çalışacaktır. Bu <strong>soyutlaştırma</strong> sayesinde üst seviye sınıfımızın alt seviye sınıflara olan bağımlılığını tersine çevirmiş oluruz.. Tam da prensibin istediği gibi!</p>
+
+<blockquote>
+<p>Egemen MEDE - 09.10.2022</p>
+</blockquote>
+
+
+
+
+</body>
+
+</html>

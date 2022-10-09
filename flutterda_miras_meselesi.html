@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Flutter'da Miras Meselesi</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Flutter&#39;da Miras Meselesinin 3 Atlısı</h1>
+
+<p><strong>Dart</strong>&#39;ta bir sınıf başka bir sınıfı miras alabilir. Bunu yapmak için de <strong>3 anahtar kelimeyi</strong> kullanır. Bunları aşağıdaki gibi listeleyebiliriz.</p>
+
+<ul>
+<li>extends</li>
+<li>implements</li>
+<li>with</li>
+</ul>
+
+<h2 id="toc_1">extends:</h2>
+
+<p><strong>extends</strong> anahtar sözcüğü, tipik <strong>OOP</strong> (Nesne Yönelimli Programlama) özellikleri olan Soyutlama (<strong>Abstraction</strong>), Kapsülleme (<strong>Encapsulation</strong>), Miras Alma (<strong>Inheritance</strong>) ve Çok Biçimlilik (<strong>Polymorphism</strong>) özelliklerinden Miras Alma/Kalıtım (<strong>Inheritance</strong>)&#39;yı karşılar.</p>
+
+<p>Bir sınıf, başka bir sınıfı genişletiyorsa (<strong>extends</strong>), miras alınan sınıftaki tüm özellikler (<strong>properties</strong>), değişkenler (<strong>variables</strong>), yöntemler (<strong>methods</strong>) miras alan sınıfta da mevcuttur. Ayrıca, yöntemleri geçersiz (<strong>override methods</strong>) kılabilirsiniz.</p>
+
+<blockquote>
+<ul>
+<li>Alt sınıflar (<strong>Child Classes</strong>), üst sınıfın (<strong>Parent Classes</strong>) kurucuları (<strong>Constructors</strong>) dışındaki tüm özellikleri (<strong>properties</strong>) ve yöntemleri (<strong>methods</strong>) devralır.</li>
+<li>Dart, <strong>çoklu kalıtımı (Multiple Inheritance)</strong> desteklemez. (<em>Çoklu kalıtım (multiple inheritance) bir sınıfın iki veya daha fazla üst sınıftan miras almasını sağlar</em>) Örneğin; Java ve C# çoklu kalıtımı desteklemezken, C++ destekler. C++&#39;ın çoklu kalıtımı desteklemesinden ötürü litaratüre <a href="https://en.wikipedia.org/wiki/Multiple_inheritance">Diamond Problem</a> olarak bilinen sorunu da kazandırmıştır. Bu durumun önüne geçebilmek için ise literatürdeki <strong>Arayüz (Interface)</strong> kavramı ortaya çıkmıştır.</li>
+</ul>
+</blockquote>
+
+<p><strong>first_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/first_class.dart">first_class.dart</a>)</p>
+
+<div><pre><code class="language-none">class FirstClass {
+  static String valueString = &quot;Extends Test&quot;;
+
+  void firstClassFunc() {
+    print(&#39;firstClassFunc&#39;);
+  }
+}</code></pre></div>
+
+<p><strong>second_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/second_class.dart">second_class.dart</a>)</p>
+
+<div><pre><code class="language-none">import &#39;package:dart_extends_with_implements/first_class.dart&#39;;
+
+class SecondClass extends FirstClass {}</code></pre></div>
+
+<p><strong>main.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/main.dart">main.dart</a>)</p>
+
+<div><pre><code class="language-none">  // First Class Örneğini Oluştur
+  var firstClass = FirstClass();
+
+  // firstClassFunc() çağırılıyor
+  firstClass.firstClassFunc();
+
+  // FirstClass sınıfının statik değişkeni yazdırılıyor
+  print(FirstClass.valueString);
+
+  // Second Class Örneğini Oluştur
+  var secondClass = SecondClass();
+
+  // Miras alınan firstClassFunc() çağırılıyor.
+  secondClass.firstClassFunc();</code></pre></div>
+
+<p>Kodumuzu çalıştırdığımızda, elde edeceğimiz çıktı aşağıdaki gibi olacaktır.</p>
+
+<p><strong>Çıktı</strong></p>
+
+<div><pre><code class="language-none">flutter: firstClassFunc
+flutter: Extends Test
+flutter: firstClassFunc</code></pre></div>
+
+<p>Bkz. <a href="https://dart.dev/guides/language/language-tour#extending-a-class">Extending a class</a></p>
+
+<h2 id="toc_2">implements:</h2>
+
+<p>Bildiğiniz gibi <strong>Dart</strong> dilinde her sınıf ancak tek bir sınıftan miras alabilir. Eğer birden fazla sınıftan miras almak istiyor ve çoklu kalıtım sağlamak istiyorsanız, <strong>extends (Kalıtım/Miras Alma)</strong> konusunu açıklarken, çoklu kalıtım ile ilgili ihtiyacın giderilmesi için literatürdeki <strong>Arayüz (Interface)</strong> kavramı ortaya çıktığını belirtmiştik.</p>
+
+<p>Ancak gel gelelim <strong>Dart</strong> dilinde <strong>interface</strong> kavramı yoktur. İşte tam da bu noktada <strong>implements</strong> anahtar kelimesi devreye girer. Her sınıf <strong>extends</strong> anahtar kelimesi ile sadece tek bir sınıftan miras alabiliyorken, <strong>implements</strong> anahtar kelimesi ile birden fazla sınıf implemente edilebilir  ve bu sayede çoklu kalıtım desteklenmiş olur.</p>
+
+<p><strong>third_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/third_class.dart">third_class.dart</a>)</p>
+
+<div><pre><code class="language-none">class ThirdClass {
+  void thirdClassFunc() {
+    print(&#39;thirdClassFunc&#39;);
+  }
+}</code></pre></div>
+
+<p><strong>fourth_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/fourth_class.dart">fourth_class.dart</a>)</p>
+
+<div><pre><code class="language-none">import &#39;package:dart_extends_with_implements/third_class.dart&#39;;
+
+class FourthClass implements ThirdClass {
+  @override
+  void thirdClassFunc() {
+    print(
+        &#39;Uygulanan ThirdClass sınıfının yöntemlerini bildirmek zorunda kaldık&#39;);
+  }
+}</code></pre></div>
+
+<p><strong>main.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/main.dart">main.dart</a>)</p>
+
+<div><pre><code class="language-none">  // Third Class Örneğini Oluştur
+  var thirdClass = ThirdClass();
+
+  // thirdClassFunc() çağırılıyor
+  thirdClass.thirdClassFunc();
+
+  // Fourth Class Örneğini Oluştur
+  var fourthClass = FourthClass();
+
+  // Implemente edilen sınıfın fonksiyonu override ediliyor.
+  fourthClass.thirdClassFunc();</code></pre></div>
+
+<p>Kodumuzu çalıştırdığımızda, elde edeceğimiz çıktı aşağıdaki gibi olacaktır.</p>
+
+<p><strong>Çıktı</strong></p>
+
+<div><pre><code class="language-none">flutter: thirdClassFunc
+flutter: Uygulanan ThirdClass sınıfının yöntemlerini bildirmek zorunda kaldık</code></pre></div>
+
+<p><strong>Dart</strong> dilinde <strong>arayüz/interface</strong> kavramının bulunmadığını, buna karşılık <strong>implements</strong> anahtar kelimesi ile birden fazla sınıf implemente edilebileceğini belirtmiştik. </p>
+
+<p>Örneğimizde de olduğu gibi <strong>ThirdClass</strong>&#39;ı <strong>FourthClass</strong>&#39;ına implemente ediliyor. <strong>extends</strong> işleminden farklı olarak <strong>FourthClass</strong> içerisinde <strong>ThirdClass</strong>&#39;a ait <strong>thirdClassFunc</strong> metodu <strong>zorunlu</strong> olarak <strong>override</strong> ediliyor. Bu özelliği ile <strong>soyut sınıflarla (abstract classes)</strong> benzerlik göstermektedir. </p>
+
+<blockquote>
+<p><strong>Peki, farkı nedir?</strong></p>
+
+<p>Bir <strong>soyut sınıf (abstract class)</strong> hem soyut hem de somut metotlar içerebilir. Ancak <strong>soyut sınıf (abstract class)</strong> başka bir sınıfa <strong>extends</strong> edildiğinde sadece soyut metotları zorunlu olarak eklenirken, <strong>implements</strong> ile implemente edilirse hem hem soyut hem de somut metotlar zorunlu olarak eklenir.</p>
+</blockquote>
+
+<p>Bkz. <a href="https://dart.dev/guides/language/language-tour#implicit-interfaces">implicit-interfaces</a></p>
+
+<h2 id="toc_3">with:</h2>
+
+<p>Dart <a href="https://dart.dev/guides/language/language-tour#adding-features-to-a-class-mixins">resmi dokümantasyonunda</a> &quot;<em>Mixin&#39;ler, bir sınıfın metotlarını birden çok sınıf (multiple class) hiyerarşisinde yeniden kullanmanın bir yoludur.</em>&quot; şeklinde tanımlanır. En basit haliyle de ancak bu şekilde tanımlanabilir. Bir mixin, <strong>with</strong> anahtar sözcüğünü ile kullanılır.</p>
+
+<p>Aşağıdaki örneğimizle <strong>FiveClass</strong> ve <strong>SixClass</strong> isimli sınıflarımızı <strong>mixin</strong> olarak oluşturuyoruz.</p>
+
+<p><strong>five_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/five_class.dart">five_class.dart</a>)</p>
+
+<div><pre><code class="language-none">mixin FiveClass {
+  void fiveClassFunc(){
+    print(&#39;fiveClassFunc&#39;);
+  }
+}</code></pre></div>
+
+<p><strong>six_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/six_class.dart">six_class.dart</a>)</p>
+
+<div><pre><code class="language-none">mixin SixClass {
+  void number() {
+    print(100);
+  }
+}</code></pre></div>
+
+<p><strong>SevenClass</strong> isimli sınıfımıza <strong>with</strong> anahtar kelimesiyle <strong>FiveClass</strong> ve <strong>SixClass</strong> isimli <strong>mixin</strong>&#39;lerimizi ekliyoruz. Burada hatırlamamız gereken iki unsur var. Birincisi; <strong>with</strong> anahtar kelimesi ile eklediğiniz sınıfların metotlarını kullanabilir ve üst sınıfın metotlarını geçersiz kılabilirsiniz. İkincisi; <strong>with</strong> ile eklediğiniz <strong>mixin</strong>&#39;lerin metotlarını zorunlu olarak eklemenize ihtiyaç yoktur. Hangilerini ezmek istiyorsanız onları ekleyebilirsiz.</p>
+
+<p><strong>seven_class.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/seven_class.dart">seven_class.dart</a>)</p>
+
+<div><pre><code class="language-none">import &#39;package:dart_extends_with_implements/six_class.dart&#39;;
+import &#39;package:dart_extends_with_implements/five_class.dart&#39;;
+
+class SevenClass with FiveClass, SixClass {
+  @override
+  void fiveClassFunc() {
+    print(&#39;Gerekirse geçersiz kılabilir&#39;);
+  }
+}</code></pre></div>
+
+<p><strong>main.dart</strong> (Bkz. <a href="https://github.com/egemenmede/flutter_examples/blob/main/dart_extends_with_implements/lib/main.dart">main.dart</a>)</p>
+
+<div><pre><code class="language-none">  // Seven Class Örneğini Oluştur
+  var sevenClass = SevenClass();
+
+  // fiveClassFunc() çağırılıyor
+  sevenClass.fiveClassFunc();
+
+  // number() çağırılıyor
+  sevenClass.number();</code></pre></div>
+
+<p>Kodumuzu çalıştırdığımızda, elde edeceğimiz çıktı aşağıdaki gibi olacaktır.</p>
+
+<p><strong>Çıktı</strong></p>
+
+<div><pre><code class="language-none">flutter: Gerekirse geçersiz kılabilir
+flutter: 100</code></pre></div>
+
+<p>Bkz. <a href="https://dart.dev/guides/language/language-tour#adding-features-to-a-class-mixins">Adding features to a class: mixins</a></p>
+
+<h3 id="toc_4">Beyin Jimnastiği</h3>
+
+<div><pre><code class="language-none">class Sanatci {
+   void perform() {
+     print(&#39;performing...&#39;);
+   }
+}
+
+mixin Dansci {
+   void perform() {
+     print(&#39;Dance...Dance...Dance..&#39;);
+   }
+}
+
+mixin Sarkici {
+   void perform() {
+     print(&#39;lalaaa..laaalaaa....laaaaa&#39;);
+   }
+}
+
+class Muzisyen extends Sanatci with Dansci, Sarkici {
+   void showTime() {
+     perform();
+   }
+}
+
+void main() {
+  var muzisyen = Muzisyen();
+  muzisyen.showTime();
+}</code></pre></div>
+
+<p><strong>Çıktısı ne olur? Neden?</strong></p>
+
+<h3 id="toc_5">Mixin ile &quot;on&quot; Anahtar Kelimesi</h3>
+
+<p><strong>On</strong> anahtar sözcüğü, <strong>Mixin</strong>&#39;in kullanımını yalnızca bildirildiği <strong>sınıfı genişleten (extend eden)</strong> veya <strong>uygulayan (implements)</strong> sınıflarla sınırlamak için kullanılır.</p>
+
+<p>Nasıl kullanıldığını anlamak için <strong>On</strong> anahtar sözcüğünü kullandığımız aşağıdaki örneğe bir göz atalım.</p>
+
+<div><pre><code class="language-none">class A {
+  void show() {
+     print(&#39;ClassA...&#39;);
+  }
+}
+
+class B{
+  void show() {
+     print(&#39;ClassB...&#39;);
+  }
+}
+
+mixin X on A{
+  void show() {
+     print(&#39;MixinX...&#39;);
+  }
+}
+
+mixin Y on B {
+  void show() {
+     print(&#39;MixinY...&#39;);
+  }
+} 
+
+class P extends A with X {}
+class Q extends B with Y {}
+
+void main() {
+  var p = P();
+  p.show();
+}</code></pre></div>
+
+<p>Örneğimizi çalıştırdığımızda çıktısı aşağıdaki gibi oluşacaktır.</p>
+
+<div><pre><code class="language-none">MixinX...</code></pre></div>
+
+<p>Peki örneğimizdeki <strong>P sınıfını</strong> aşağıdaki satır ile değiştirirsek çıktımız nasıl değişir?</p>
+
+<div><pre><code class="language-none">class P with X {}</code></pre></div>
+
+<p>Elbette hata alacağız..</p>
+
+<p>Çünkü, <strong>X mixin</strong>&#39;i oluştururken <strong>&quot;on&quot;</strong> anahtar kelimesi ile <strong>A sınıfı</strong> ile gelişletilmesini zorunlu hale getirmiş olduk. Dolayısı ile <strong>P sınıfı</strong>, <strong>A sınıfı</strong> extend edilmeden, <strong>X mixin</strong>&#39;ini implemente edemez.</p>
+
+<blockquote>
+<p>Egemen MEDE - 25.09.2022</p>
+</blockquote>
+
+
+
+
+</body>
+
+</html>
