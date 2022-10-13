@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Asenkron Operasyonlar I</title>
+
+
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb
+}
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+  body {
+    padding: 2cm; 
+  }
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="toc_0">Dart Dilinde Asenkron Operasyonlar - I</h1>
+
+<p>Öncelikle hedefimizi ortaya koyalım.. </p>
+
+<p>Bu yazı serisi ile amacımız; başta <strong>Dart</strong>&#39;ın <strong>event queue</strong> ve <strong>microtask</strong> kuyruğunu nasıl idare ettiğini derinlemesine öğrenerek, uygulama yazarken yapacağımız asenkron operasyonlar için daha iyi asenkron programlama kodu yazabilmek. </p>
+
+<p>Akabinde devam eden bölümlerde de asenkron operasyonlar yapmak konusundaki kasımızı geliştirmeye devam edeceğiz.</p>
+
+<p>Hadi başlayalım!..</p>
+
+<p><strong>Dart</strong>, <strong>tek iş parçacıklı (single-threaded)</strong> bir programlama dilidir. Bunun anlamı tüm uygulama kodlarının aynı iş parçacığında çalışıyor olmasıdır. Yani bir <strong>input/output (I/O)</strong> ya da <strong>HTTP</strong> isteği gibi zaman alan ve belli bir süre sonra sonuç döndüren işlemler tamamlanana kadar uygulama donar ve kullanıcının etkileşimlerine izin vermez.</p>
+
+<p>Peki bu pratikte böyle midir? Elbette değil..</p>
+
+<p>Bu özellik genellikle yanlış anlaşılır. Çünkü <strong>Dart</strong> her ne kadar tek iş parçacıklı (single-threaded) bir programlama dili olsa da, <strong>async</strong> ve <strong>await</strong> anahtar kelimelerini kullanan <strong>Future</strong> nesnesini kullanarak <strong>asenkron</strong> operasyonlar yapmanıza olanak tanır. </p>
+
+<p>Temel de böyle olsa da bu konudaki tek yardımcınız <strong>Future</strong> olmayacak. Konseptin içerisindeki kavramları incelemeye devam edelim..</p>
+
+<p>Öncelikle <strong>thread/iş parçacığı</strong> kavramına bir göz atalım.</p>
+
+<h3 id="toc_1">Thread nedir?</h3>
+
+<p>Bir <strong>Dart</strong> kodu işletilmeye başlandığı zaman <strong>Dart runtime (çalışma zamanı)</strong>&#39;da yalıtılmış bir <strong>thread</strong> <strong>(isolated thread process)</strong> oluşturur. Oluşturulan bu thread için <strong>FIFO (first-in, first-out)</strong> şeklinde çalışan <strong>iki queue/kuyruk</strong> oluşturulur ve bu kuyruklardan biri <strong>microtasks/mikro görevler</strong> için, diğeri <strong>events/olaylar</strong> için kullanılır. Yani bir Dart uygulamasının <strong>iki sıralı(two queues)</strong> <strong>tek bir olay döngüsü (single event loop)</strong> vardır.</p>
+
+<blockquote>
+<p>Özetle; 2 kuyruk/queues(event queue, microtask queue) ve 1 event loop :)</p>
+</blockquote>
+
+<p><strong>Olay döngüsü/Event Loop</strong>, <strong>Dart</strong>&#39;ın diğer kod çalıştırılmazken işlenecek <strong>mikro görevleri/microtasks</strong> ve <strong>olayları/events</strong> tekrar tekrar kontrol ettiği sonsuz bir döngü gibidir.</p>
+
+<p><img src="https://raw.githubusercontent.com/egemenmede/public_assets/main/both_queues.png" alt="İki Kuyruk"/></p>
+
+<h3 id="toc_2">Events ve Event Queue</h3>
+
+<p><strong>Event</strong> ya da <strong>event queue</strong>; <em>database işlemleri gibi I/O çalışmalarında, fare olayları/mouse events, taps, clicks, keypress gibi kullanıcı etkileşim eventlarında, çizim olayları/drawing events, zamanlayıcılar/timers, Dart isolate&#39;leri arasındaki mesajlar, bir akışa/stream veri eklendikçe dinleyiciler/listeners olaylar/events aracılığıyla bilgilendirilmesi</em> gibi tüm dış olayları içerir.</p>
+
+<p>Daha da basite indirgersek event queue, Dart&#39;ın kod yürütmeyi yönetmek için kullandığı <strong>olay döngüsü/event loop</strong>&#39;unu gerçekleştirmesi için gerekli olan tüm eventların bir sıralamasıdır.</p>
+
+<p>Bu durumu şöyle görsel olarak ifade edebiliriz.</p>
+
+<p><img src="https://raw.githubusercontent.com/egemenmede/public_assets/main/event_loop.png" alt="Event Loop"/></p>
+
+<p><img src="https://raw.githubusercontent.com/egemenmede/public_assets/main/event_loop_example.png" alt="Event Loop Example"/></p>
+
+<p><img src="https://raw.githubusercontent.com/egemenmede/public_assets/main/event_loop_and_main.png" alt="Event Loop and Main"/></p>
+
+<p>Yukarıdaki şekilde gösterildiği gibi, bir <strong>Dart</strong> uygulaması, <strong>main isolate</strong>&#39;i uygulamanın <strong>main()</strong> fonksiyonunu yürütmeye başlar. <strong>main()</strong>&#39;den çıktıktan sonra, <strong>main isolate</strong>&#39;in <strong>iş parçacığı/threadi</strong>, uygulamanın <strong>olay kuyruğundaki</strong> tüm öğeleri birer birer işlemeye başlar.</p>
+
+<p>Bu durumu mobil uygulamalar için genelleyecek olursak uygulamanın ömrü boyunca başlayacak, yukarıda bahsettiğimiz pek çok event&#39;ı gerçekleştirecek, duracak ama bu olayların ne zaman veya hangi sıra ile gerçekleşeceğini bilemeyecek. Çünkü, kullanıcının ne zaman, hangi sıra ile, hangi eventları işleyeceğini hiç bir zaman bilemeyiz.. İşte tam da bu sebepten dolayı bunların hepsini hiçbir zaman engellemeyen Dart&#39;ın sahip olduğu single thread ele alır ve bir olay döngüsü/event loop çalıştrır.</p>
+
+<p><strong>Peki, bu kadar belirsizlik içerisinde olay döngüsü/event loop yürütme sırasına nasıl karar verir?</strong></p>
+
+<p>Aslında bunun cevabını yukarıda <strong>Thread</strong>&#39;i anlatırken vermiş olduk. <em>&quot;..FIFO (first-in, first-out) şeklinde çalışan iki queue/kuyruk oluşturulur..&quot;</em>.</p>
+
+<p><strong>Event loop</strong> en eski olayı olayı alır (first-in), işler, bitirir (first-out), sonrakine geçer, alır, işler.. Ta ki event boşalana kadar böyle devam eder. Bu sırada da uygulamanın çalıştığı süre boyunca siz hala uygulama ekranında bir şeyler yapıyor, yeni eventları queue&#39;a yolluyor olursunuz. Olay döngüsü/event loop da, bu olayları birer birer işlemeye devam eder.</p>
+
+<p><strong>Bütün olaylar bitti!.. Amiyane tabirle, kullacımız artık uygulamamızı mıncıklamıyor. Şimdi neler olacak?</strong></p>
+
+<p>Bu durumda thread&#39;imiz gelecek eventları beklemeye başlar. Yeni bir event, event loop&#39;una düştüğünde, süreci tekrar baştan başlatmış olur.</p>
+
+<blockquote>
+<p>Dart ya da Flutter kullanırken asynchronous operasyonlar için kullandığınız futures, streams, async, await gibi tüm işlemlerin hepsi bu basit döngü üzerinde ve çevresinde inşa edilmiştir.</p>
+</blockquote>
+
+<h3 id="toc_3">Microtasks</h3>
+
+<p><strong>Thread</strong>&#39;i anlatırken <strong>Dart</strong>&#39;ın çalışma zamanında oluşturduğu <strong>isolated thread</strong> için <strong>iki queue/kuyruk</strong> oluşturduğunu ve bu kuyruklardan birinin <strong>microtasks/mikro görevler</strong> için olduğunu belirtmiştik. Zaten diğeri de <strong>event</strong>&#39;lar oluşturuyordu.</p>
+
+<p><strong>Peki iki ayrı kuyruk oluşturan microtasks ve event&#39;ların çalışma önceliği nasıldır?</strong></p>
+
+<p>Event&#39;ları anlatırken kendi içlerindeki çalışma önceliğini detaylı şekilde irdelemiştik.. </p>
+
+<p><strong>Microtask&#39;larda bu çalışma nasıl gerçekleşiyor? Daha da önemlisi microtask&#39;lar ve event&#39;lar arasında bu öncelik nasıldır?</strong></p>
+
+<p>Öncelikle ikinci sorumuzu cevaplayarak başlayalım. <em>Tüm zamanlanmış microtask&#39;lar, event&#39;lardan önce yürütülür. Microtasks kalmadığında ise, olay kuyruğunda/event loop&#39;ta bekleyen event&#39;lar işlenir.</em></p>
+
+<p>İlk sorumuza gelince..</p>
+
+<p>Önelikle bir schedule task/zamanlanmış görev nasıl oluşturulur? bunu öğrenmemiz gerekiyor. Zira event&#39;lar için bizim özel bir şey yapmamız gerekmiyordu. Kullanıcı çeşitli etkileşimlerle pek çok event oluşturuyor ve event loop içerisinde sistem tarafından bunun yönetilmesi sağlanıyordu.</p>
+
+<p><img src="https://raw.githubusercontent.com/egemenmede/public_assets/main/flutterissirasidrawio.png" alt="Flutter İş Sırası" width="600"/></p>
+
+<p><strong>Bir schedule task/zamanlanmış görev oluşturmak</strong></p>
+
+<p>Bir <strong>schedule task/zamanlanmış görev</strong> oluşturmak için <strong>Dart</strong>&#39;ta iki yöntem kullanabiliyoruz. İki yöntemde Dart&#39;ın <strong>dart:async</strong> kütüphanesi tarafından sağlanıyor.</p>
+
+<ol>
+<li>Bir <strong>Future</strong> sınıfı kullanarak bir zamanlanmış görev oluşturabilirsiz. Future&#39;u kullandığınızda event loop&#39;una yeni bir öğe daha eklemiş olursunuz.</li>
+<li>Bir diğer yöntem ise, asenkron olarak çalıştırabileceğiniz top-level bir fonksiyon olan <strong>scheduleMicrotask()</strong> fonksiyonudur. Bu fonksiyon aracılığıyla kaydedilen callback&#39;ler her zaman sırayla yürütülür ve diğer asenkron olaylardan (timers gibi) önce çalışması garanti edilir. <strong>Bakın burası çokomelli!</strong></li>
+</ol>
+
+<p>Hadi bu çokomelli tarafı gözlerimizle görelim..</p>
+
+<div><pre><code class="language-none">import &#39;dart:async&#39;;
+
+main() {
+    print(&quot;#1 ------&quot;);
+    print(&quot;#2 ------&quot;);
+    print(&quot;#3 ------&quot;);
+    Future.delayed(const Duration(seconds: 5),
+        ()=&gt; print(&quot;#4 ------ delayed&quot;));
+    print(&quot;#5 ------&quot;);
+  scheduleMicrotask(() =&gt; print(&#39;#6 ------ scheduleMicrotask&#39;));
+}</code></pre></div>
+
+<p><strong>Ne dersiniz çıktı nasıl olacak?</strong></p>
+
+<p>Öncelikle 1, 2, 3 ve 5. maddeleri oluşturan print fonksiyonları çalışacak. Ardından diğer tüm asenkron olaylardan önce scheduleMicrotask() fonksiyonu çalışacak ve 6. madde ekrana yazılacak. Future.delayed ile beklettiğimiz 4. madde ise scheduleMicrotask() fonksiyonundan hemen sonra çalışacak ve aşağıdaki görüntüyü oluşturacaktır.</p>
+
+<div><pre><code class="language-none">#1 ------
+#2 ------
+#3 ------
+#5 ------
+#6 ------ scheduleMicrotask
+#4 ------ delayed</code></pre></div>
+
+<p>Ortalığı biraz daha karıştıralım..</p>
+
+<div><pre><code class="language-none">import &#39;dart:async&#39;;
+
+main() {
+    print(&quot;#1 ------&quot;);
+    print(&quot;#2 ------&quot;);
+    print(&quot;#3 ------&quot;);
+    Future.delayed(const Duration(seconds: 5),
+        ()=&gt; { 
+      print(&quot;#4 ------ delayed&quot;),
+      scheduleMicrotask(() =&gt; print(&#39;#8 ------ scheduleMicrotask&#39;)),
+      Future.delayed(const Duration(seconds: 5),()=&gt;{
+        print(&quot;#9 ------&quot;)
+      })
+    });
+  
+  
+    print(&quot;#5 ------&quot;);
+   scheduleMicrotask(() =&gt; print(&#39;#6 ------ scheduleMicrotask&#39;));
+   scheduleMicrotask(() =&gt; print(&#39;#7 ------ scheduleMicrotask&#39;));
+}</code></pre></div>
+
+<p>İşte yeni sıralamamız!..</p>
+
+<div><pre><code class="language-none">#1 ------
+#2 ------
+#3 ------
+#5 ------
+#6 ------ scheduleMicrotask
+#7 ------ scheduleMicrotask
+#4 ------ delayed
+#8 ------ scheduleMicrotask
+#9 ------</code></pre></div>
+
+<p>Hadi son bir headshot yapalım!..</p>
+
+<div><pre><code class="language-none">import &#39;dart:async&#39;;
+
+main() {
+    print(&quot;#1 ------&quot;);
+    print(&quot;#2 ------&quot;);
+    print(&quot;#3 ------&quot;);
+    Future.delayed(const Duration(seconds: 5),
+        ()=&gt; { 
+      print(&quot;#4 ------ delayed&quot;),
+      scheduleMicrotask(() =&gt; print(&#39;#8 ------ scheduleMicrotask&#39;)),
+      Future.delayed(const Duration(seconds: 5),()=&gt;{
+        print(&quot;#9 ------&quot;)
+      })
+    });
+  
+  Future(() =&gt; print(&quot;#10 ------&quot;))
+      .then((_) =&gt; print(&quot;#11 ------&quot;))
+      .then((_) {
+        print(&quot;#12 ------&quot;);
+        scheduleMicrotask(() =&gt; print(&quot;#13 ------ scheduleMicrotask&quot;));
+      });
+  
+  print(&quot;#5 ------&quot;);
+  scheduleMicrotask(() =&gt; print(&#39;#6 ------ scheduleMicrotask&#39;));
+  scheduleMicrotask(() =&gt; print(&#39;#7 ------ scheduleMicrotask&#39;));
+}</code></pre></div>
+
+<p><strong>Sonuç için tahminleri alalım..</strong></p>
+
+<p><strong>??</strong></p>
+
+<p>Yukarıda da belirttiğimiz gibi <strong>scheduleMicrotask()</strong> fonksiyonu aracılığı ile kaydettiğimizi tüm callback&#39;ler her zaman sırayla yürütüldü ve diğer asenkron olaylardan (<strong>Future</strong> ya da <strong>Future.delayed</strong>) önce çalışması garanti edilmiş oldu.</p>
+
+<blockquote>
+<p>Örneğin bir kullanıcının kimliğinin artık doğrulanmadığını algılamak ve kullanıcıyı oturum açmaya yönlendirmek amacı ile microtask kullanmak çok doğru bir use case olmaz mıydı? Ne dersiniz?</p>
+</blockquote>
+
+<p>Daha düzgün bir şekilde ifade edecek olursak çalışma sıralamamız aşadağıki gibi oluşmuş oldu.</p>
+
+<ol>
+<li><strong>main()</strong> fonksiyonunun içerisi çalışır.</li>
+<li><strong>Microtask queue (scheduleMicrotask())</strong> içerisindeki tasklar çalışır.</li>
+<li><strong>Event queue</strong> (<strong>Future()</strong> veya <strong>Future.delayed()</strong>) içerisindeki tasklar çalışır.</li>
+</ol>
+
+<blockquote>
+<p><strong>main()</strong> fonksiyonunun içerisindeki tüm çağrıların <strong>senkron</strong> olarak yürütüldüğünü unutmayın.</p>
+</blockquote>
+
+<p><strong>scheduleMicrotask()</strong> fonksiyonunu <strong>Future<T>.microtask</strong> constructor/yapıcısı ile de aşağıdaki gibi kullanabilirsiniz.</p>
+
+<div><pre><code class="language-none">import &#39;dart:async&#39;;
+
+main() {
+    print(&quot;#1 ------&quot;);
+    print(&quot;#2 ------&quot;);
+    print(&quot;#3 ------&quot;);
+    Future.delayed(const Duration(seconds: 5),
+        ()=&gt; { 
+      print(&quot;#4 ------ delayed&quot;),
+      Future&lt;void&gt;.microtask(() {
+          print(&quot;#8 ------ scheduleMicrotask&quot;);
+      }),
+      Future.delayed(const Duration(seconds: 5),()=&gt;{
+        print(&quot;#9 ------&quot;)
+      })
+    });
+  
+  Future(() =&gt; print(&quot;#10 ------&quot;))
+      .then((_) =&gt; print(&quot;#11 ------&quot;))
+      .then((_) {
+        print(&quot;#12 ------&quot;);
+        Future&lt;void&gt;.microtask(() {
+            print(&quot;#13 ------ scheduleMicrotask&quot;);
+        });
+      });
+  
+    print(&quot;#5 ------&quot;);
+  Future&lt;void&gt;.microtask(() {
+      print(&quot;#6 ------ scheduleMicrotask&quot;);
+  });
+  Future&lt;void&gt;.microtask(() {
+      print(&quot;#7 ------ scheduleMicrotask&quot;);
+  });
+}</code></pre></div>
+
+<p>Bu şekilde kullanıldığında da sonuç değişmeyecektir.</p>
+
+<blockquote>
+<p><strong>Future<void>.microtask</strong> yazım şeklini <strong>Future.microtask</strong> şeklinde de kullanabilirsiniz.</p>
+</blockquote>
+
+<p><strong>Unutmayın!</strong></p>
+
+<p><strong>main()</strong> fonksiyonu, <strong>microtask</strong> ve <strong>event</strong> kuyruğundaki tüm öğeler, <strong>Dart</strong> uygulamasının <strong>main isolate</strong>&#39;inde çalışır.</p>
+
+<p><strong>Bir görev planladığınızda/schedule task;</strong></p>
+
+<ol>
+<li>Mümkünse <strong>Future()</strong> veya <strong>Future.delayed()</strong> kullanın.</li>
+<li>Görev sırasını belirlemek için <strong>Future</strong>&#39;un <strong>then()</strong> veya <strong>whenComplete()</strong> metotlarını kullanın. (Bu metotların detaylarına daha sonra değineceğiz.)</li>
+<li><strong>Event loop</strong> içerisindeki <strong>event</strong>&#39;ları çok bekletmemek için <strong>microtask kuyruğunu</strong> mümkün oldukça her zaman kısa tutun.</li>
+<li>Her iki olay döngüsünde de (event loop ve microtask) yoğun işlem gerektiren görevlerden kaçının.</li>
+<li>Yoğun işlem gerektiren görevleri gerçekleştirmek için ek <strong>isolate</strong>&#39;ler veya <strong>worker</strong>&#39;lar oluşturun. (Bu konunun detaylarına daha sonra değineceğiz.)</li>
+</ol>
+
+<p><strong>Göz atmak isterseniz..</strong></p>
+
+<ul>
+<li><p><a href="https://web.archive.org/web/20170704074724/https://webdev.dartlang.org/articles/performance/event-loop">Event Loop</a></p></li>
+<li><p><a href="https://api.dart.dev/be/175791/dart-async/Future-class.html">Future Class</a></p></li>
+<li><p><a href="https://api.flutter.dev/flutter/dart-async/scheduleMicrotask.html">scheduleMicrotask</a></p></li>
+<li><p><a href="https://api.flutter.dev/flutter/dart-async/Future/Future.microtask.html">Future<T>.microtask constructor</a></p></li>
+</ul>
+
+<p>Eğlence devam edecek..</p>
+
+
+
+
+</body>
+
+</html>
