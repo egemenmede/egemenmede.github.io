@@ -385,7 +385,7 @@ kbd {
 
 <p>Aslında bunun cevabını yukarıda <strong>Thread</strong>&#39;i anlatırken vermiş olduk. <em>&quot;..FIFO (first-in, first-out) şeklinde çalışan iki queue/kuyruk oluşturulur..&quot;</em>.</p>
 
-<p><strong>Event loop</strong> en eski olayı olayı alır (first-in), işler, bitirir (first-out), sonrakine geçer, alır, işler.. Ta ki event boşalana kadar böyle devam eder. Bu sırada da uygulamanın çalıştığı süre boyunca siz hala uygulama ekranında bir şeyler yapıyor, yeni eventları queue&#39;a yolluyor olursunuz. Olay döngüsü/event loop da, bu olayları birer birer işlemeye devam eder.</p>
+<p><strong>Event loop</strong> en eski olayı alır (first-in), işler, bitirir (first-out), sonrakine geçer, alır, işler.. Ta ki event boşalana kadar böyle devam eder. Bu sırada da uygulamanın çalıştığı süre boyunca siz hala uygulama ekranında bir şeyler yapıyor, yeni eventları queue&#39;a yolluyor olursunuz. Olay döngüsü/event loop da, bu olayları birer birer işlemeye devam eder.</p>
 
 <p><strong>Bütün olaylar bitti!.. Amiyane tabirle, kullacımız artık uygulamamızı mıncıklamıyor. Şimdi neler olacak?</strong></p>
 
@@ -572,8 +572,10 @@ main() {
 
 <p>Bu şekilde kullanıldığında da sonuç değişmeyecektir.</p>
 
+<div><pre><code class="language-none">Future&lt;void&gt;.microtask</code></pre></div>
+
 <blockquote>
-<p><strong>Future<void>.microtask</strong> yazım şeklini <strong>Future.microtask</strong> şeklinde de kullanabilirsiniz.</p>
+<p>Şeklindeki yazım şeklini <strong>Future.microtask</strong> şeklinde de kullanabilirsiniz.</p>
 </blockquote>
 
 <p><strong>Unutmayın!</strong></p>
@@ -586,7 +588,7 @@ main() {
 <li>Mümkünse <strong>Future()</strong> veya <strong>Future.delayed()</strong> kullanın.</li>
 <li>Görev sırasını belirlemek için <strong>Future</strong>&#39;un <strong>then()</strong> veya <strong>whenComplete()</strong> metotlarını kullanın. (Bu metotların detaylarına daha sonra değineceğiz.)</li>
 <li><strong>Event loop</strong> içerisindeki <strong>event</strong>&#39;ları çok bekletmemek için <strong>microtask kuyruğunu</strong> mümkün oldukça her zaman kısa tutun.</li>
-<li>Her iki olay döngüsünde de (event loop ve microtask) yoğun işlem gerektiren görevlerden kaçının.</li>
+<li>Her iki olay döngüsünde de (<strong>event loop</strong> ve <strong>microtask</strong>) yoğun işlem gerektiren görevlerden kaçının.</li>
 <li>Yoğun işlem gerektiren görevleri gerçekleştirmek için ek <strong>isolate</strong>&#39;ler veya <strong>worker</strong>&#39;lar oluşturun. (Bu konunun detaylarına daha sonra değineceğiz.)</li>
 </ol>
 
